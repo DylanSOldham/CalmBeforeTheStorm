@@ -15,7 +15,7 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Transform cameraTrans = this.gameObject.getComponent<Transform>();
+        //Transform cameraTrans = this.gameObject.getComponent<Transform>();
         
     }
 }
