@@ -17,7 +17,7 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(shipTransform);
-        transform.position = shipTransform.position + new Vector3(0.0f, 3.0f, -10.0f);
+        cameraTransform.LookAt(shipTransform.position);
+        cameraTransform.position = shipTransform.position + new Vector3(0.0f, 3.0f, -8.0f);
     }
 }
