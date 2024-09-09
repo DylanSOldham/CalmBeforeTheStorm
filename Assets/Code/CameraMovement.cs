@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     public Transform shipTransform;
+    public Transform shipDirection;
 
     private Transform cameraTransform;
 
@@ -17,7 +18,13 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        cameraTransform.LookAt(shipTransform.position);
-        cameraTransform.position = shipTransform.position + new Vector3(0.0f, 3.0f, -8.0f);
+        //cameraTransform.LookAt(shipTransform.position);
+        //cameraTransform.position = shipTransform.position + new Vector3(20.0f, 30.0f, 0f);
+        Vector3 offset = new Vector3(20, 30f, 0f); // Adjust these values as needed
+        cameraTransform.position = shipTransform.position + shipTransform.rotation * offset;
+
+        // Make the camera look at the ship
+        Vector3 lookAtPosition = shipTransform.position + -shipDirection.right * 20;
+        cameraTransform.LookAt(lookAtPosition);
     }
 }
