@@ -5,7 +5,7 @@ using UnityEngine;
 public class WaterController : MonoBehaviour
 {
     public const float WATER_SIZE = 200.0f;
-    public const int WATER_VERTEX_WIDTH = 20;
+    public const int WATER_VERTEX_WIDTH = 100;
     const float SQUARE_SIZE = WATER_SIZE / WATER_VERTEX_WIDTH;
 
     private Mesh mesh;
@@ -56,7 +56,7 @@ public class WaterController : MonoBehaviour
             {
                 vertices[j * WATER_VERTEX_WIDTH + i] = new Vector3(
                     (float)i * SQUARE_SIZE - WATER_SIZE / 2.0f, 
-                    20.0f * Mathf.PerlinNoise((float)i * 0.2f + timer, (float) j * 0.2f + timer), 
+                    20.0f * Mathf.PerlinNoise((float)i * 0.02f + timer, (float) j * 0.02f + timer), 
                     (float)j * SQUARE_SIZE - WATER_SIZE / 2.0f
                 );
             }
