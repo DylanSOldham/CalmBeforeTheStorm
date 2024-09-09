@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class WaterController : MonoBehaviour
 {
-    public const float WATER_SIZE = 100.0f;
-    public const int WATER_VERTEX_WIDTH = 10;
+    public const float WATER_SIZE = 200.0f;
+    public const int WATER_VERTEX_WIDTH = 20;
     const float SQUARE_SIZE = WATER_SIZE / WATER_VERTEX_WIDTH;
 
     private Mesh mesh;
@@ -47,7 +47,7 @@ public class WaterController : MonoBehaviour
 
     void RefreshVertices()
     {
-        timer += Time.deltaTime;
+        timer += 0.1f * Time.deltaTime;
 
         mesh.Clear();
         for (int i = 0; i < WATER_VERTEX_WIDTH; i++)
@@ -56,7 +56,7 @@ public class WaterController : MonoBehaviour
             {
                 vertices[j * WATER_VERTEX_WIDTH + i] = new Vector3(
                     (float)i * SQUARE_SIZE - WATER_SIZE / 2.0f, 
-                    2.0f * Mathf.Sin(i + j + timer), 
+                    20.0f * Mathf.PerlinNoise((float)i * 0.2f + timer, (float) j * 0.2f + timer), 
                     (float)j * SQUARE_SIZE - WATER_SIZE / 2.0f
                 );
             }
