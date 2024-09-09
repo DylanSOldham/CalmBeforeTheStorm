@@ -20,12 +20,14 @@ public class CameraMovement : MonoBehaviour
     {
         //cameraTransform.LookAt(shipTransform.position);
         //cameraTransform.position = shipTransform.position + new Vector3(20.0f, 30.0f, 0f);
-        Vector3 offset = new Vector3(20, 30f, 0f); // Adjust these values as needed
-        cameraTransform.position = shipTransform.position + shipTransform.rotation * offset;
-        cameraTransform.position = new Vector3(cameraTransform.position.x, 10.0f, cameraTransform.position.z);
+        Vector3 offset = new Vector3(50, 0, 38); // Adjust these values as needed
+        Vector3 shipPosition = shipTransform.position;
+        shipPosition.y = 80;
+        cameraTransform.position = shipPosition + shipTransform.rotation * offset;
 
         // Make the camera look at the ship
         Vector3 lookAtPosition = shipTransform.position + -shipDirection.right * 20;
+        lookAtPosition.x += 20;
         cameraTransform.LookAt(lookAtPosition);
     }
 }
