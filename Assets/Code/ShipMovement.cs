@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShipMovement : MonoBehaviour
 {
     private Transform shipTransform;
+    public WaterController waterController;
 
     // Start is called before the first frame update
     void Start()
@@ -18,5 +19,9 @@ public class ShipMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.W)) {
             shipTransform.position += 0.1f * Vector3.forward;
         }
+
+        shipTransform.position = new Vector3(shipTransform.position.x, waterController.GetHeightAtPosition(shipTransform.position) + 0.3f, shipTransform.position.z);
+
+        Debug.Log(waterController.GetHeightAtPosition(shipTransform.position));
     }
 }
