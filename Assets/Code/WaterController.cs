@@ -40,14 +40,14 @@ public class WaterController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         RefreshVertices();
     }
 
     void RefreshVertices()
     {
-        timer += 0.1f * Time.deltaTime;
+        timer += 0.001f;
 
         mesh.Clear();
         for (int i = 0; i < WATER_VERTEX_WIDTH; i++)
