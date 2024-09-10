@@ -16,13 +16,12 @@ public class CameraMovement : MonoBehaviour
         _offset = transform.position - target.position;
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         var targetPosition = target.position + target.rotation * _offset;
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref _currentVelocity, smoothTime);
         
         var targetRotation = Quaternion.LookRotation(target.position - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSmoothTime);
-        
     }
 }

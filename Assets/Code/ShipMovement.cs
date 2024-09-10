@@ -5,56 +5,49 @@ using UnityEngine;
 
 public class ShipMovement : MonoBehaviour
 {
-    private Transform _shipTransform;
     public WaterController waterController;
 
-    private Vector3 _speed = new Vector3(0, 0, 0);
-    public Vector3 maxSpeed = new Vector3(15, 0, 15);
-
-    private Vector3 _acceleration = new Vector3(0, 0, 0);
-    public Vector3 maxAcceleration = new Vector3(5, 0, 5);
+    float shipForwardVelocity = 0.0f;
+    const float shipForwardAcceleration = 0.001f;
+    const float maxShipForwardVeloicty = 0.45f;
 
     float shipRotation = 0.0f;
-    
+    float shipAngularVelocity = 0.0f;
+    const float shipAngularAcceleration = 0.01f;
+    const float maxShipAngularVelocity = 0.75f;
+
     // Start is called before the first frame update
     void Start()
     {
-        _shipTransform = GetComponent<Transform>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        // Collect Player Input
         var vAxis = Input.GetAxis("Vertical");
         var hAxis = Input.GetAxis("Horizontal");
         
-        if (hAxis >= 0 && _acceleration.z < 0 || hAxis <= 0 && _acceleration.z > 0)
-        {
-            _acceleration.z = 0;
-            _speed.z *= 0.75f * Time.deltaTime;
-        } 
-            
-        if (vAxis >= 0 && _acceleration.x < 0 || vAxis <= 0 && _acceleration.x > 0)
-        {
-            _acceleration.x = 0;
-            _speed.x *= 0.75f * Time.deltaTime;
-        } 
-            
-        _acceleration.z = Math.Clamp(_acceleration.z + 1 * hAxis * Time.deltaTime, -maxAcceleration.z, maxAcceleration.z);
-        _speed.z = Math.Clamp(_speed.z + _acceleration.z * Time.deltaTime, -maxSpeed.z, maxSpeed.z);
-            
-        _acceleration.x = Math.Clamp(_acceleration.x + 1 * vAxis * Time.deltaTime, -maxAcceleration.x, maxAcceleration.x);
-        _speed.x = Math.Clamp(_speed.x + _acceleration.x * Time.deltaTime, -maxSpeed.x, maxSpeed.x);
-        
-        var target = _shipTransform.position;
-        target.y = waterController.GetHeightAtPosition(target);
-        target -= _shipTransform.right * (_speed.x * Time.deltaTime);
-        transform.position = target;
+        // Enact Forward Acceleration
+        var new_position = transform.position;
+        shipForwardVelocity = Math.Clamp(shipForwardVelocity + vAxis * shipForwardAcceleration, -maxShipForwardVeloicty, maxShipForwardVeloicty);
+        new_position -= shipForwardVelocity * transform.right;
+        new_position.y = waterController.GetHeightAtPosition(new_position);
+        transform.position = new_position;
 
-        shipRotation += _speed.z * Time.deltaTime;
+        // Enact Angular Acceleration
+        shipAngularVelocity = Math.Clamp(shipAngularVelocity + hAxis * shipAngularAcceleration, -maxShipAngularVelocity, maxShipAngularVelocity);
+        shipRotation += shipAngularVelocity;
 
-        _shipTransform.rotation = Quaternion.identity;
-        _shipTransform.Rotate(Vector3.up, shipRotation);
-        _shipTransform.rotation *= Quaternion.FromToRotation(Vector3.up, waterController.GetNormalAtPosition(transform.position));
+        // Drag
+        if (vAxis.Equals(0))
+            shipForwardVelocity *= 0.98f;
+        if (hAxis.Equals(0))
+            shipAngularVelocity *= 0.98f;
+
+        // Orient ship along the plane of the water surface
+        transform.rotation = Quaternion.identity;
+        transform.Rotate(Vector3.up, shipRotation);
+        transform.rotation *= Quaternion.FromToRotation(Vector3.up, waterController.GetNormalAtPosition(transform.position));
     }
 }
