@@ -354,7 +354,7 @@ PrefabInstance:
     - target: {fileID: 5543651345473848479, guid: 1b7403600508b3c4c8b138020893f5e2,
         type: 3}
       propertyPath: m_Name
-      value: cannon
+      value: rightBot
       objectReference: {fileID: 0}
     - target: {fileID: 5543651345473848479, guid: 1b7403600508b3c4c8b138020893f5e2,
         type: 3}
@@ -3898,6 +3898,13 @@ MonoBehaviour:
   waterController: {fileID: 162430761}
   maxSpeed: {x: 15, y: 0, z: 15}
   maxAcceleration: {x: 5, y: 0, z: 5}
+  cannonOne: {fileID: 54217062}
+  cannonTwo: {fileID: 1199718637}
+  cannonThree: {fileID: 1901547387}
+  cannonFour: {fileID: 1010458648}
+  fireForce: 100
+  cannonBall: {fileID: 1219729125759928542, guid: 5c9578bcdcea5c144b9b4c26488542fb,
+    type: 3}
 --- !u!4 &773278572
 Transform:
   m_ObjectHideFlags: 0
@@ -4699,6 +4706,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 933671826}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &977874354
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 977874355}
+  m_Layer: 6
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &977874355
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977874354}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.068, y: 0.658, z: 1.147}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 54217062}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1010458647
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4794,7 +4832,7 @@ PrefabInstance:
     - target: {fileID: 5543651345473848479, guid: 1b7403600508b3c4c8b138020893f5e2,
         type: 3}
       propertyPath: m_Name
-      value: cannon
+      value: leftBot
       objectReference: {fileID: 0}
     - target: {fileID: 5543651345473848479, guid: 1b7403600508b3c4c8b138020893f5e2,
         type: 3}
@@ -5630,7 +5668,7 @@ PrefabInstance:
     - target: {fileID: 5543651345473848479, guid: 1b7403600508b3c4c8b138020893f5e2,
         type: 3}
       propertyPath: m_Name
-      value: cannon
+      value: rightTop
       objectReference: {fileID: 0}
     - target: {fileID: 5543651345473848479, guid: 1b7403600508b3c4c8b138020893f5e2,
         type: 3}
@@ -7729,7 +7767,7 @@ PrefabInstance:
     - target: {fileID: 5543651345473848479, guid: 1b7403600508b3c4c8b138020893f5e2,
         type: 3}
       propertyPath: m_Name
-      value: cannon
+      value: leftTop
       objectReference: {fileID: 0}
     - target: {fileID: 5543651345473848479, guid: 1b7403600508b3c4c8b138020893f5e2,
         type: 3}
