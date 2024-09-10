@@ -11,7 +11,9 @@ public class ShipMovement : MonoBehaviour
     float shipForwardVelocity = 0.0f;
     const float shipForwardAcceleration = 0.001f;
     const float maxShipForwardVeloicty = 0.45f;
-
+    private bool sailContracted = true;
+    private bool sailMoving = false;
+    
     float shipRotation = 0.0f;
     float shipAngularVelocity = 0.0f;
     const float shipAngularAcceleration = 0.01f;
@@ -25,7 +27,7 @@ public class ShipMovement : MonoBehaviour
     public float fireForce = 30f;
 
     public GameObject cannonBall;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +38,16 @@ public class ShipMovement : MonoBehaviour
     void FixedUpdate()
     {
         MoveShip();
+        
+        if (shipForwardVelocity >= 0.1f && sailContracted && !sailMoving)
+        {
+            StartCoroutine(RetractSail());
+        }
+
+        if (shipForwardVelocity <= 0.1f && !sailContracted && !sailMoving)
+        {
+            StartCoroutine(ContractSail());
+        }
 
         if(Input.GetMouseButtonDown(0)){
             //shoot cannonOne
@@ -62,6 +74,46 @@ public class ShipMovement : MonoBehaviour
             Rigidbody cannonBallRigidBody4 = cannonBallFour.GetComponent<Rigidbody>();
             cannonBallRigidBody4.velocity = -Vector3.forward * fireForce;
         }
+    }
+
+    private float t = 0;
+    private IEnumerator  ContractSail()
+    {
+        sailMoving = true;
+        for (t = 0; t < 1; t += Time.deltaTime / 1.5f)
+        {
+            Vector3 targetScale = new Vector3(1, 0, 1);
+            Vector3 newScale = Vector3.Lerp(Vector3.one, targetScale, t);
+            openSail.transform.localScale = newScale;
+        
+            // Interpolate the Y position
+            float newY = Mathf.Lerp(10.54397f, 13f, t);
+            openSail.transform.localPosition = new Vector3(openSail.transform.localPosition.x, newY, openSail.transform.localPosition.z);
+
+            yield return null;
+        }
+        sailContracted = true;
+        openSail.SetActive(false);
+        sailMoving = false;
+    }
+
+    private IEnumerator RetractSail()
+    {   
+        sailMoving = true;
+        openSail.SetActive(true);
+        for (t = 0; t < 1; t += Time.deltaTime / 1.5f)
+        {
+            Vector3 originalScale = new Vector3(1, 0, 1);
+            Vector3 newScale = Vector3.Lerp(originalScale, Vector3.one, t);
+            openSail.transform.localScale = newScale;
+        
+            var newY = Mathf.Lerp(13f,10.54397f, t);
+            openSail.transform.localPosition = new Vector3(openSail.transform.localPosition.x, newY, openSail.transform.localPosition.z);
+
+            yield return null;
+        }
+        sailContracted = false;
+        sailMoving = false;
     }
 
     // Call in FixedUpdate
