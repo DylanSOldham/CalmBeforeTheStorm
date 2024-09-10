@@ -1,86 +1,53 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ShipMovement : MonoBehaviour
 {
-    private Transform shipTransform;
+    private Transform _shipTransform;
     public WaterController waterController;
 
-    public GameObject directionObject;
-
-    public float moveSpeed = 10f; // Adjust to make it faster/slower
-    public float turnFactor = 50f; // Adjust for faster/slower rotation
-
     private Vector3 _speed = new Vector3(0, 0, 0);
-    public Vector3 maxSpeed = new Vector3(5, 0, 5);
+    public Vector3 maxSpeed = new Vector3(15, 0, 15);
 
     private Vector3 _acceleration = new Vector3(0, 0, 0);
-    public Vector3 maxAcceleration = new Vector3(10, 0, 10);
-
-    private float _timer = 0;
-
-
+    public Vector3 maxAcceleration = new Vector3(5, 0, 5);
+    
     // Start is called before the first frame update
     void Start()
     {
-        shipTransform = GetComponent<Transform>();
+        _shipTransform = GetComponent<Transform>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // if (Input.GetKey(KeyCode.W)) {
-        //     shipTransform.position += moveSpeed * -directionObject.transform.right * Time.deltaTime;
-        // }
-        // if (Input.GetKey(KeyCode.A))
-        // {
-        //     shipTransform.Rotate(Vector3.up, -turnSpeed * Time.deltaTime);
-        // }
-        _timer += Time.deltaTime;
-        if (_timer >= 0.2f)
+        var vAxis = Input.GetAxis("Vertical");
+        var hAxis = Input.GetAxis("Horizontal");
+        
+        if (hAxis >= 0 && _acceleration.z < 0 || hAxis <= 0 && _acceleration.z > 0)
         {
-            _timer = 0;
+            _acceleration.z = 0;
+            _speed.z *= 0.75f * Time.deltaTime;
+        } 
             
-            int dir = 0;
+        if (vAxis >= 0 && _acceleration.x < 0 || vAxis <= 0 && _acceleration.x > 0)
+        {
+            _acceleration.x = 0;
+            _speed.x *= 0.75f * Time.deltaTime;
+        } 
             
-            if (Input.GetKey(KeyCode.D))
-            {
-                dir += 1;
-            }
-
-            if (Input.GetKey(KeyCode.A))
-            {
-                dir -= 1;
-            }
-
-            if (dir != 0)
-            {
-                if (Mathf.Abs(_acceleration.z) <= maxAcceleration.z)
-                {
-                    _acceleration.z += 3 * dir;
-                    Debug.Log(dir);
-                }
-                _speed.z += _acceleration.z;
-            }
-            else
-            {
-                Debug.Log(dir);
-                if (_speed.z > 0)
-                {
-                    _speed.z -= 2;
-                }
-                else
-                {
-                    _speed.z += 2;
-                }
-            }
+        _acceleration.z = Math.Clamp(_acceleration.z + 1 * hAxis * Time.deltaTime, -maxAcceleration.z, maxAcceleration.z);
+        _speed.z = Math.Clamp(_speed.z + _acceleration.z * Time.deltaTime, -maxSpeed.z, maxSpeed.z);
             
-
-        }
-        var target = shipTransform.position;
+        _acceleration.x = Math.Clamp(_acceleration.x + 1 * vAxis * Time.deltaTime, -maxAcceleration.x, maxAcceleration.x);
+        _speed.x = Math.Clamp(_speed.x + _acceleration.x * Time.deltaTime, -maxSpeed.x, maxSpeed.x);
+        
+        var target = _shipTransform.position;
         target.y = waterController.GetHeightAtPosition(target);
-        shipTransform.position = target;
-        shipTransform.Rotate(Vector3.up, _speed.z * Time.deltaTime);
+        target -= _shipTransform.right * (_speed.x * Time.deltaTime);
+        transform.position = target;
+        _shipTransform.Rotate(Vector3.up, _speed.z * Time.deltaTime);
     }
 }
