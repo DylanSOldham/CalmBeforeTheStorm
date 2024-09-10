@@ -13,6 +13,8 @@ public class ShipMovement : MonoBehaviour
 
     private Vector3 _acceleration = new Vector3(0, 0, 0);
     public Vector3 maxAcceleration = new Vector3(5, 0, 5);
+
+    float shipRotation = 0.0f;
     
     // Start is called before the first frame update
     void Start()
@@ -48,6 +50,11 @@ public class ShipMovement : MonoBehaviour
         target.y = waterController.GetHeightAtPosition(target);
         target -= _shipTransform.right * (_speed.x * Time.deltaTime);
         transform.position = target;
-        _shipTransform.Rotate(Vector3.up, _speed.z * Time.deltaTime);
+
+        shipRotation += _speed.z * Time.deltaTime;
+
+        _shipTransform.rotation = Quaternion.identity;
+        _shipTransform.Rotate(Vector3.up, shipRotation);
+        _shipTransform.rotation *= Quaternion.FromToRotation(Vector3.up, waterController.GetNormalAtPosition(transform.position));
     }
 }
