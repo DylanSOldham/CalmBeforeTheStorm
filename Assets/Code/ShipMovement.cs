@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShipMovement : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class ShipMovement : MonoBehaviour
     const float shipAngularAcceleration = 0.01f;
     const float maxShipAngularVelocity = 0.75f;
 
+    public float WaitBetweenShots = 2f;
+    public float timeBetweenShots = 0;
+
     public Transform cannonOne;
     public Transform cannonTwo;
     public Transform cannonThree;
@@ -26,6 +30,8 @@ public class ShipMovement : MonoBehaviour
 
     public GameObject cannonBall;
     public GameObject particleEffectCannon;
+
+    public Transform orangeBar;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +44,14 @@ public class ShipMovement : MonoBehaviour
     {
         MoveShip();
 
-        if(Input.GetMouseButtonDown(0)){
+        timeBetweenShots += Time.deltaTime;
+        
+        changeBar();
+
+        //work on angle cannon shoots at
+        if(Input.GetMouseButtonDown(0) && (timeBetweenShots >= WaitBetweenShots)){
+            timeBetweenShots = 0f;
+            
             //shoot cannonOne
             Vector3 offset = cannonOne.position + new Vector3(0,0,2f);
             GameObject cannonBallOne = Instantiate(cannonBall, offset, cannonOne.rotation);
@@ -105,4 +118,23 @@ public class ShipMovement : MonoBehaviour
         transform.rotation *= Quaternion.FromToRotation(Vector3.up, waterController.GetNormalAtPosition(transform.position));
 
     }
+
+    public void changeBar(){
+        float percent = timeBetweenShots / WaitBetweenShots;
+
+        // Clamp percent between 0 and 1 to avoid invalid scales
+        percent = Mathf.Clamp01(percent);
+
+        //Debug.Log($"{percent}");
+
+        if (percent >= 1)
+        {
+            orangeBar.localScale = new Vector3(1, orangeBar.localScale.y, orangeBar.localScale.z);
+        }
+        else
+        {
+            orangeBar.localScale = new Vector3(percent, orangeBar.localScale.y, orangeBar.localScale.z);
+        }
+    }
+
 }
