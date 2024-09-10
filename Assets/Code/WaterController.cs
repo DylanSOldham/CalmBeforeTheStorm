@@ -69,7 +69,8 @@ public class WaterController : MonoBehaviour
     }
     public float GetHeightAtPosition(Vector3 position) 
     {
-        return 30.0f * Mathf.PerlinNoise(position.x * 0.01f + timer, position.z * 0.01f + timer);
+        return 20.0f * Mathf.PerlinNoise(position.x * 0.01f + timer, position.z * 0.01f + timer)
+             + 20.0f * Mathf.PerlinNoise(-position.x * 0.01f + timer, -position.z * 0.01f + timer);
     }
 
     public Vector3 GetNormalAtPosition(Vector3 position)
