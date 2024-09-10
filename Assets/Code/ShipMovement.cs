@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ShipMovement : MonoBehaviour
 {
-    private Transform shipTransform;
+    private Transform _shipTransform;
     public WaterController waterController;
 
     public GameObject directionObject;
@@ -17,49 +17,46 @@ public class ShipMovement : MonoBehaviour
     public Vector3 maxAcceleration = new Vector3(5, 0, 5);
 
     private float _timer = 0;
-
-
+    
     // Start is called before the first frame update
     void Start()
     {
-        shipTransform = GetComponent<Transform>();
+        _shipTransform = GetComponent<Transform>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        var v_axis = Input.GetAxis("Vertical");
-        var h_axis = Input.GetAxis("Horizontal");
+        var vAxis = Input.GetAxis("Vertical");
+        var hAxis = Input.GetAxis("Horizontal");
         
         _timer += Time.deltaTime;
         if (_timer >= 0.2f)
         {
             _timer = 0;
-            if (h_axis >= 0 && _acceleration.z < 0 || h_axis <= 0 && _acceleration.z > 0)
+            if (hAxis >= 0 && _acceleration.z < 0 || hAxis <= 0 && _acceleration.z > 0)
             {
                 _acceleration.z = 0;
                 _speed.z *= 0.75f;
             } 
             
-            if (v_axis >= 0 && _acceleration.x < 0 || v_axis <= 0 && _acceleration.x > 0)
+            if (vAxis >= 0 && _acceleration.x < 0 || vAxis <= 0 && _acceleration.x > 0)
             {
                 _acceleration.x = 0;
                 _speed.x *= 0.75f;
             } 
             
-            _acceleration.z = Math.Clamp(_acceleration.z + 1 * h_axis, -maxAcceleration.z, maxAcceleration.z);
+            _acceleration.z = Math.Clamp(_acceleration.z + 1 * hAxis, -maxAcceleration.z, maxAcceleration.z);
             _speed.z = Math.Clamp(_speed.z + _acceleration.z, -maxSpeed.z, maxSpeed.z);
             
-            _acceleration.x = Math.Clamp(_acceleration.x + v_axis, -maxAcceleration.x, maxAcceleration.x);
+            _acceleration.x = Math.Clamp(_acceleration.x + vAxis, -maxAcceleration.x, maxAcceleration.x);
             _speed.x = Math.Clamp(_speed.x + _acceleration.x, -maxSpeed.x, maxSpeed.x);
         }
         
-        Debug.Log(h_axis);
-        
-        var target = shipTransform.position;
+        var target = _shipTransform.position;
         target.y = waterController.GetHeightAtPosition(target);
-        target.x -= _speed.x * Time.deltaTime;
-        shipTransform.position = target;
-        shipTransform.Rotate(Vector3.up, _speed.z * Time.deltaTime);
+        target -= _shipTransform.right * (_speed.x * Time.deltaTime);
+        transform.position = target;
+        _shipTransform.Rotate(Vector3.up, _speed.z * Time.deltaTime);
     }
 }
