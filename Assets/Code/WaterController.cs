@@ -71,4 +71,27 @@ public class WaterController : MonoBehaviour
     {
         return 20.0f * Mathf.PerlinNoise(position.x * 0.02f + timer, position.z * 0.02f + timer);
     }
+
+    Vector3 eh_position;
+    public Vector3 GetNormalAtPosition(Vector3 position)
+    {
+        eh_position = position;
+
+        Vector3 point1 = position + 0.1f * Vector3.forward;
+        point1.y = GetHeightAtPosition(point1);
+
+        Vector3 point2 = position + 0.1f * Vector3.right;
+        point2.y = GetHeightAtPosition(point2);
+
+        Vector3 tangent1 = point1 - position;
+        Vector3 tangent2 = point2 - position;
+
+        return Vector3.Cross(tangent1, tangent2).normalized;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(eh_position, eh_position + 10.0f * GetNormalAtPosition(eh_position));
+    }
 }
