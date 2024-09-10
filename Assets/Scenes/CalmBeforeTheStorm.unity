@@ -3897,12 +3897,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waterController: {fileID: 162430761}
   openSail: {fileID: 0}
-  cannonOne: {fileID: 0}
-  cannonTwo: {fileID: 0}
-  cannonThree: {fileID: 0}
-  cannonFour: {fileID: 0}
+  cannonOne: {fileID: 54217062}
+  cannonTwo: {fileID: 1199718637}
+  cannonThree: {fileID: 1901547387}
+  cannonFour: {fileID: 1010458648}
   fireForce: 30
-  cannonBall: {fileID: 0}
+  cannonBall: {fileID: 1219729125759928542, guid: 5c9578bcdcea5c144b9b4c26488542fb,
+    type: 3}
+  particleEffectCannon: {fileID: 7223933822309062622, guid: 9951f7c5c7eddb345b452929a6ceb946,
+    type: 3}
 --- !u!4 &773278572
 Transform:
   m_ObjectHideFlags: 0

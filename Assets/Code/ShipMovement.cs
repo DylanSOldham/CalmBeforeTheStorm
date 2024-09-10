@@ -25,6 +25,7 @@ public class ShipMovement : MonoBehaviour
     public float fireForce = 30f;
 
     public GameObject cannonBall;
+    public GameObject particleEffectCannon;
 
     // Start is called before the first frame update
     void Start()
@@ -41,26 +42,34 @@ public class ShipMovement : MonoBehaviour
             //shoot cannonOne
             Vector3 offset = cannonOne.position + new Vector3(0,0,2f);
             GameObject cannonBallOne = Instantiate(cannonBall, offset, cannonOne.rotation);
+            GameObject particleEffect = Instantiate(particleEffectCannon, offset, cannonOne.rotation);
             Rigidbody cannonBallRigidBody = cannonBallOne.GetComponent<Rigidbody>();
             cannonBallRigidBody.velocity = Vector3.forward * fireForce;
+            Destroy(particleEffect, 1f);
 
             //shoot cannonTwo
             Vector3 offset2 = cannonTwo.position + new Vector3(0,0,2f);
             GameObject cannonBallTwo = Instantiate(cannonBall, offset2, cannonTwo.rotation);
             Rigidbody cannonBallRigidBody2 = cannonBallTwo.GetComponent<Rigidbody>();
             cannonBallRigidBody2.velocity = Vector3.forward * fireForce;
+            GameObject particleEffect2 = Instantiate(particleEffectCannon, offset2, cannonTwo.rotation);
+            Destroy(particleEffect2, 1f);
 
             //shoot cannonThree
             Vector3 offset3 = cannonThree.position + new Vector3(0,0,-2f);
             GameObject cannonBallThree = Instantiate(cannonBall, offset3, cannonThree.rotation);
             Rigidbody cannonBallRigidBody3 = cannonBallThree.GetComponent<Rigidbody>();
             cannonBallRigidBody3.velocity = -Vector3.forward * fireForce;
+            GameObject particleEffect3 = Instantiate(particleEffectCannon, offset3, cannonThree.rotation);
+            Destroy(particleEffect3, 1f);
 
             //shoot cannonFour
             Vector3 offset4 = cannonFour.position + new Vector3(0,0,-2f);
             GameObject cannonBallFour = Instantiate(cannonBall, offset4, cannonFour.rotation);
             Rigidbody cannonBallRigidBody4 = cannonBallFour.GetComponent<Rigidbody>();
             cannonBallRigidBody4.velocity = -Vector3.forward * fireForce;
+            GameObject particleEffect4 = Instantiate(particleEffectCannon, offset4, cannonFour.rotation);
+            Destroy(particleEffect4, 1f);
         }
     }
 
