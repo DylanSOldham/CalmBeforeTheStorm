@@ -1,33 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    public Transform shipTransform;
-    public Transform shipDirection;
+    private Vector3 _offset;
+    [SerializeField] private Transform target;
+    [SerializeField] private float smoothTime = 0.5f;
+    [SerializeField] private float rotationSmoothTime = 0.3f;
+    private Vector3 _currentVelocity = Vector3.zero;
 
-    private Transform cameraTransform;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        cameraTransform = GetComponent<Transform>();   
+        _offset = transform.position - target.position;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void LateUpdate()
     {
-        //cameraTransform.LookAt(shipTransform.position);
-        //cameraTransform.position = shipTransform.position + new Vector3(20.0f, 30.0f, 0f);
-        Vector3 offset = new Vector3(50, 0, 38); // Adjust these values as needed
-        Vector3 shipPosition = shipTransform.position;
-        shipPosition.y = 80;
-        cameraTransform.position = shipPosition + shipTransform.rotation * offset;
-
-        // Make the camera look at the ship
-        Vector3 lookAtPosition = shipTransform.position + -shipDirection.right * 20;
-        lookAtPosition.x += 20;
-        cameraTransform.LookAt(lookAtPosition);
+        var targetPosition = target.position + target.rotation * _offset;
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref _currentVelocity, smoothTime);
+        
+        var targetRotation = Quaternion.LookRotation(target.position - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSmoothTime);
+        
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WaterController : MonoBehaviour
 {
-    public const float WATER_SIZE = 200.0f;
+    public const float WATER_SIZE = 500.0f;
     public const int WATER_VERTEX_WIDTH = 20;
     const float SQUARE_SIZE = WATER_SIZE / WATER_VERTEX_WIDTH;
 
