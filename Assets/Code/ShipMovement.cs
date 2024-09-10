@@ -77,6 +77,8 @@ public class ShipMovement : MonoBehaviour
         new_position -= shipForwardVelocity * transform.right;
         new_position.y = waterController.GetHeightAtPosition(new_position);
         transform.position = new_position;
+        new_position.y = 0.0f;
+        waterController.transform.position = new_position;
 
         // Enact Angular Acceleration
         shipAngularVelocity = Math.Clamp(shipAngularVelocity + hAxis * shipAngularAcceleration, -maxShipAngularVelocity, maxShipAngularVelocity);
@@ -92,5 +94,6 @@ public class ShipMovement : MonoBehaviour
         transform.rotation = Quaternion.identity;
         transform.Rotate(Vector3.up, shipRotation);
         transform.rotation *= Quaternion.FromToRotation(Vector3.up, waterController.GetNormalAtPosition(transform.position));
+
     }
 }

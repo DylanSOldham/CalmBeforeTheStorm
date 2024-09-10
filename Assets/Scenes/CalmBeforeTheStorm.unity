@@ -3784,7 +3784,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 250
+  far clip plane: 1000
   field of view: 70
   orthographic: 0
   orthographic size: 5
@@ -3897,15 +3897,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waterController: {fileID: 162430761}
   openSail: {fileID: 0}
-  maxSpeed: {x: 15, y: 0, z: 15}
-  maxAcceleration: {x: 5, y: 0, z: 5}
-  cannonOne: {fileID: 54217062}
-  cannonTwo: {fileID: 1199718637}
-  cannonThree: {fileID: 1901547387}
-  cannonFour: {fileID: 1010458648}
-  fireForce: 100
-  cannonBall: {fileID: 1219729125759928542, guid: 5c9578bcdcea5c144b9b4c26488542fb,
-    type: 3}
+  cannonOne: {fileID: 0}
+  cannonTwo: {fileID: 0}
+  cannonThree: {fileID: 0}
+  cannonFour: {fileID: 0}
+  fireForce: 30
+  cannonBall: {fileID: 0}
 --- !u!4 &773278572
 Transform:
   m_ObjectHideFlags: 0

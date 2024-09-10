@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WaterController : MonoBehaviour
 {
-    public const float WATER_SIZE = 500.0f;
+    public const float WATER_SIZE = 1500.0f;
     public const int WATER_VERTEX_WIDTH = 100;
     const float SQUARE_SIZE = WATER_SIZE / WATER_VERTEX_WIDTH;
 
@@ -59,7 +59,7 @@ public class WaterController : MonoBehaviour
                     0.0f, 
                     (float)j * SQUARE_SIZE - WATER_SIZE / 2.0f
                 );
-                vertices[j * WATER_VERTEX_WIDTH + i].y = GetHeightAtPosition(vertices[j * WATER_VERTEX_WIDTH + i]);
+                vertices[j * WATER_VERTEX_WIDTH + i].y = GetHeightAtPosition(transform.position + vertices[j * WATER_VERTEX_WIDTH + i]);
             }
         }
 
@@ -69,37 +69,21 @@ public class WaterController : MonoBehaviour
     }
     public float GetHeightAtPosition(Vector3 position) 
     {
-        return 20.0f * Mathf.PerlinNoise(position.x * 0.02f + timer, position.z * 0.02f + timer);
+        return 30.0f * Mathf.PerlinNoise(position.x * 0.01f + timer, position.z * 0.01f + timer);
     }
 
-    Vector3 eh_position;
-    Vector3 eh_point1;
-    Vector3 eh_point2;
     public Vector3 GetNormalAtPosition(Vector3 position)
     {
 
-        Vector3 point1 = position + 0.1f * Vector3.forward;
+        Vector3 point1 = position + 0.4f * Vector3.forward;
         point1.y = GetHeightAtPosition(point1);
 
-        Vector3 point2 = position + 0.1f * Vector3.right;
+        Vector3 point2 = position + 0.4f * Vector3.right;
         point2.y = GetHeightAtPosition(point2);
 
         Vector3 tangent1 = point1 - position;
         Vector3 tangent2 = point2 - position;
 
-        eh_position = position;
-        eh_point1 = tangent1;
-        eh_point2 = tangent2;
-
         return Vector3.Cross(tangent1, tangent2).normalized;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(eh_position, eh_position + 10.0f * GetNormalAtPosition(eh_position));
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(eh_position, eh_position + 150.0f * eh_point1);
-        Gizmos.DrawLine(eh_position, eh_position + 150.0f * eh_point2);
     }
 }
