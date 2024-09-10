@@ -7,9 +7,10 @@ public class ShipMovement : MonoBehaviour
 {
     private Transform _shipTransform;
     public WaterController waterController;
+    public GameObject openSail;
 
     private Vector3 _speed = new Vector3(0, 0, 0);
-    public Vector3 maxSpeed = new Vector3(15, 0, 15);
+    public Vector3 maxSpeed = new Vector3(20, 0, 20);
 
     private Vector3 _acceleration = new Vector3(0, 0, 0);
     public Vector3 maxAcceleration = new Vector3(5, 0, 5);
@@ -29,6 +30,7 @@ public class ShipMovement : MonoBehaviour
     void Start()
     {
         _shipTransform = GetComponent<Transform>();
+        openSail = GameObject.Find("sail_open");
     }
 
     // Update is called once per frame
@@ -36,18 +38,20 @@ public class ShipMovement : MonoBehaviour
     {
         var vAxis = Input.GetAxis("Vertical");
         var hAxis = Input.GetAxis("Horizontal");
-        
+
         if (hAxis >= 0 && _acceleration.z < 0 || hAxis <= 0 && _acceleration.z > 0)
         {
             _acceleration.z = 0;
-            _speed.z *= 0.75f * Time.deltaTime;
+            _speed.z *= 0.99f * Time.deltaTime;
         } 
             
         if (vAxis >= 0 && _acceleration.x < 0 || vAxis <= 0 && _acceleration.x > 0)
         {
             _acceleration.x = 0;
-            _speed.x *= 0.75f * Time.deltaTime;
+            _speed.x *= 0.99f * Time.deltaTime;
         } 
+        
+        openSail.SetActive(vAxis != 0);
             
         _acceleration.z = Math.Clamp(_acceleration.z + 1 * hAxis * Time.deltaTime, -maxAcceleration.z, maxAcceleration.z);
         _speed.z = Math.Clamp(_speed.z + _acceleration.z * Time.deltaTime, -maxSpeed.z, maxSpeed.z);
