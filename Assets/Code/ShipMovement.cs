@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,69 +28,37 @@ public class ShipMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var v_axis = Input.GetAxis("Vertical");
+        var h_axis = Input.GetAxis("Horizontal");
+        
         _timer += Time.deltaTime;
         if (_timer >= 0.2f)
         {
             _timer = 0;
-
-            var dir = 0;
-
-            if (Input.GetKey(KeyCode.D))
-            {
-                dir += 1;
-            }
-
-            if (Input.GetKey(KeyCode.A))
-            {
-                dir -= 1;
-            }
-
-            // Auto stay still
-            if (dir == 0)
+            if (h_axis >= 0 && _acceleration.z < 0 || h_axis <= 0 && _acceleration.z > 0)
             {
                 _acceleration.z = 0;
-                if (_speed.z > 0)
-                {
-                    var i = _speed.z - 3;
-                    _speed.z = i < 0 ? 0 : i;
-                }
-                else
-                {
-                    var i = _speed.z + 3;
-                    _speed.z = i > 0 ? 0 : i;
-                }
-            }
-
-            if (dir == 1 && _acceleration.z < 0)
-            {
-                _acceleration.z = 0;
-            }
-
-            if (dir == -1 && _acceleration.z > 0)
-            {
-                _acceleration.z = 0;
-            }
-
-            if (Mathf.Abs(_acceleration.z) <= maxAcceleration.z)
-            {
-                var i = _acceleration.z + 1 * dir;
-                _acceleration.z = Mathf.Abs(i) > maxAcceleration.z ? maxAcceleration.z * dir : i;
-            }
-
-            var j = _speed.z + _acceleration.z * 2;
-            _speed.z = Mathf.Abs(j) > maxSpeed.z ? Mathf.Sign(j) * maxSpeed.z : j;
+                _speed.z *= 0.75f;
+            } 
             
-            print(_speed.z);
-            print(_acceleration.z);
-
-            if (Input.GetKey(KeyCode.W))
+            if (v_axis >= 0 && _acceleration.x < 0 || v_axis <= 0 && _acceleration.x > 0)
             {
-                _acceleration.x += 1;
-            }
+                _acceleration.x = 0;
+                _speed.x *= 0.75f;
+            } 
+            
+            _acceleration.z = Math.Clamp(_acceleration.z + 1 * h_axis, -maxAcceleration.z, maxAcceleration.z);
+            _speed.z = Math.Clamp(_speed.z + _acceleration.z, -maxSpeed.z, maxSpeed.z);
+            
+            _acceleration.x = Math.Clamp(_acceleration.x + v_axis, -maxAcceleration.x, maxAcceleration.x);
+            _speed.x = Math.Clamp(_speed.x + _acceleration.x, -maxSpeed.x, maxSpeed.x);
         }
-
+        
+        Debug.Log(h_axis);
+        
         var target = shipTransform.position;
         target.y = waterController.GetHeightAtPosition(target);
+        target.x -= _speed.x * Time.deltaTime;
         shipTransform.position = target;
         shipTransform.Rotate(Vector3.up, _speed.z * Time.deltaTime);
     }
