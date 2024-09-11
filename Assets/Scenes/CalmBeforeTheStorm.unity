@@ -907,6 +907,12 @@ MonoBehaviour:
   Skybox: {fileID: 2100000, guid: ef0e61f4a0154fc47875144f32727622, type: 2}
   fogStorm: 0.01
   fogCalm: 0.0001
+  ship: {fileID: 773278572}
+  iceBergPrefab: {fileID: 6854080447347494721, guid: 2f90d3ba143e5384dad96ca101f311f4,
+    type: 3}
+  timeBetweenIcebergSpawns: 1
+  IcebergTimer: 0
+  fogDenstiyRep: 0
 --- !u!4 &127430204
 Transform:
   m_ObjectHideFlags: 0
