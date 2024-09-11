@@ -8,6 +8,8 @@ public class WaterController : MonoBehaviour
     public const int WATER_VERTEX_WIDTH = 100;
     const float SQUARE_SIZE = WATER_SIZE / WATER_VERTEX_WIDTH;
 
+    public StormController stormController;
+    
     private Mesh mesh;
 
     private Vector3[] vertices;
