@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class StormController : MonoBehaviour
 {
+    public TextMeshProUGUI state;
+    public TextMeshProUGUI countDown;
+    
+
     bool stormActive = false;
     float timeUntilChange = 0.0f;
 

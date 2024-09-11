@@ -40,15 +40,9 @@ public class ShipMovement : MonoBehaviour
         sailTransform = GameObject.Find("sail_open").transform;
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        MoveShip();
-        UpdateSail();
-
         timeBetweenShots += Time.deltaTime;
-
-        changeBar();
 
         //work on angle cannon shoots at
         if (Input.GetMouseButtonDown(0) && (timeBetweenShots >= WaitBetweenShots))
@@ -56,37 +50,47 @@ public class ShipMovement : MonoBehaviour
             timeBetweenShots = 0f;
 
             //shoot cannonOne
-            Vector3 offset = cannonOne.position + new Vector3(0, 0, 2f);
+            Vector3 offset = cannonOne.position + cannonOne.forward * 2f;
             GameObject cannonBallOne = Instantiate(cannonBall, offset, cannonOne.rotation);
             GameObject particleEffect = Instantiate(particleEffectCannon, offset, cannonOne.rotation);
             Rigidbody cannonBallRigidBody = cannonBallOne.GetComponent<Rigidbody>();
-            cannonBallRigidBody.velocity = Vector3.forward * fireForce;
+            cannonBallRigidBody.velocity = cannonOne.forward * fireForce + shipForwardVelocity * -transform.right;
             Destroy(particleEffect, 1f);
 
             //shoot cannonTwo
-            Vector3 offset2 = cannonTwo.position + new Vector3(0, 0, 2f);
+            Vector3 offset2 = cannonTwo.position + cannonTwo.forward * 2f;
             GameObject cannonBallTwo = Instantiate(cannonBall, offset2, cannonTwo.rotation);
             Rigidbody cannonBallRigidBody2 = cannonBallTwo.GetComponent<Rigidbody>();
-            cannonBallRigidBody2.velocity = Vector3.forward * fireForce;
+            cannonBallRigidBody2.velocity = cannonTwo.forward * fireForce+ shipForwardVelocity * -transform.right;
             GameObject particleEffect2 = Instantiate(particleEffectCannon, offset2, cannonTwo.rotation);
             Destroy(particleEffect2, 1f);
 
             //shoot cannonThree
-            Vector3 offset3 = cannonThree.position + new Vector3(0, 0, -2f);
+            Vector3 offset3 = cannonThree.position + cannonThree.forward * 2f;
             GameObject cannonBallThree = Instantiate(cannonBall, offset3, cannonThree.rotation);
             Rigidbody cannonBallRigidBody3 = cannonBallThree.GetComponent<Rigidbody>();
-            cannonBallRigidBody3.velocity = -Vector3.forward * fireForce;
+            cannonBallRigidBody3.velocity = cannonThree.forward * fireForce+ shipForwardVelocity * -transform.right;
             GameObject particleEffect3 = Instantiate(particleEffectCannon, offset3, cannonThree.rotation);
             Destroy(particleEffect3, 1f);
 
             //shoot cannonFour
-            Vector3 offset4 = cannonFour.position + new Vector3(0, 0, -2f);
+            Vector3 offset4 = cannonFour.position + cannonFour.forward * 2f;
             GameObject cannonBallFour = Instantiate(cannonBall, offset4, cannonFour.rotation);
             Rigidbody cannonBallRigidBody4 = cannonBallFour.GetComponent<Rigidbody>();
-            cannonBallRigidBody4.velocity = -Vector3.forward * fireForce;
+            cannonBallRigidBody4.velocity = cannonFour.forward * fireForce+ shipForwardVelocity * -transform.right;
             GameObject particleEffect4 = Instantiate(particleEffectCannon, offset4, cannonFour.rotation);
             Destroy(particleEffect4, 1f);
         }
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        MoveShip();
+        UpdateSail();
+
+        changeBar();
+
     }
     
     private void UpdateSail() // Called in FixedUpdate
