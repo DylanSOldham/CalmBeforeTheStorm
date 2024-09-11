@@ -903,6 +903,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: {fileID: 947441690}
   countDown: {fileID: 658327522}
+  light: {fileID: 482032316}
+  Skybox: {fileID: 2100000, guid: ef0e61f4a0154fc47875144f32727622, type: 2}
 --- !u!4 &127430204
 Transform:
   m_ObjectHideFlags: 0
@@ -8775,7 +8777,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f93f4979d81dc7747adb388aae14b1d7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a0b0197cf5e06f345a0941c7d5d9c89e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
