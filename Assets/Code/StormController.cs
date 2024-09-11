@@ -43,7 +43,7 @@ public class StormController : MonoBehaviour
 
     }
 
-    public bool isStormActive()
+    public bool IsStormActive()
     {
         return stormActive;
     }

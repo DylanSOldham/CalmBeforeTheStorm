@@ -50,6 +50,8 @@ public class ShipMovement : MonoBehaviour
             timeBetweenShots = 0f;
 
             //shoot cannonOne
+            AudioSource cannon1AudioSource = cannonOne.GetComponent<AudioSource>();
+            cannon1AudioSource.Play();
             Vector3 offset = cannonOne.position + cannonOne.forward * 2f;
             GameObject cannonBallOne = Instantiate(cannonBall, offset, cannonOne.rotation);
             GameObject particleEffect = Instantiate(particleEffectCannon, offset, cannonOne.rotation);
@@ -58,6 +60,8 @@ public class ShipMovement : MonoBehaviour
             Destroy(particleEffect, 1f);
 
             //shoot cannonTwo
+            AudioSource cannon2AudioSource = cannonTwo.GetComponent<AudioSource>();
+            cannon2AudioSource.Play();
             Vector3 offset2 = cannonTwo.position + cannonTwo.forward * 2f;
             GameObject cannonBallTwo = Instantiate(cannonBall, offset2, cannonTwo.rotation);
             Rigidbody cannonBallRigidBody2 = cannonBallTwo.GetComponent<Rigidbody>();
@@ -66,6 +70,8 @@ public class ShipMovement : MonoBehaviour
             Destroy(particleEffect2, 1f);
 
             //shoot cannonThree
+            AudioSource cannon3AudioSource = cannonThree.GetComponent<AudioSource>();
+            cannon3AudioSource.Play();
             Vector3 offset3 = cannonThree.position + cannonThree.forward * 2f;
             GameObject cannonBallThree = Instantiate(cannonBall, offset3, cannonThree.rotation);
             Rigidbody cannonBallRigidBody3 = cannonBallThree.GetComponent<Rigidbody>();
@@ -74,6 +80,8 @@ public class ShipMovement : MonoBehaviour
             Destroy(particleEffect3, 1f);
 
             //shoot cannonFour
+            AudioSource cannon4AudioSource = cannonFour.GetComponent<AudioSource>();
+            cannon4AudioSource.Play();
             Vector3 offset4 = cannonFour.position + cannonFour.forward * 2f;
             GameObject cannonBallFour = Instantiate(cannonBall, offset4, cannonFour.rotation);
             Rigidbody cannonBallRigidBody4 = cannonBallFour.GetComponent<Rigidbody>();
