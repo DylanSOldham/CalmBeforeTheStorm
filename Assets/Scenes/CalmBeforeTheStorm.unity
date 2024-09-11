@@ -949,7 +949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 638afffcf210a194fbbea3c3d8381be9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stormController: {fileID: 0}
+  stormController: {fileID: 127430203}
 --- !u!23 &162430762
 MeshRenderer:
   m_ObjectHideFlags: 0

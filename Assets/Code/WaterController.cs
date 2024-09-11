@@ -9,6 +9,8 @@ public class WaterController : MonoBehaviour
     const float SQUARE_SIZE = WATER_SIZE / WATER_VERTEX_WIDTH;
 
     public StormController stormController;
+    private float waveAmplitude = 20.0f;
+    private float targetWaveAmplitude = 20.0f;
     
     private Mesh mesh;
 
@@ -46,6 +48,16 @@ public class WaterController : MonoBehaviour
     void FixedUpdate()
     {
         RefreshVertices();
+
+        if (stormController.IsStormActive())
+        {
+            targetWaveAmplitude = 30.0f;
+        }
+        else {
+            targetWaveAmplitude = 10.0f;
+        }
+        waveAmplitude = Mathf.Lerp(waveAmplitude, targetWaveAmplitude, 0.005f);
+        Debug.Log(waveAmplitude);
     }
 
     void RefreshVertices()
@@ -75,8 +87,8 @@ public class WaterController : MonoBehaviour
     }
     public float GetHeightAtPosition(Vector3 position) 
     {
-        return 20.0f * Mathf.PerlinNoise(position.x * 0.01f + timer, position.z * 0.01f + timer)
-             + 20.0f * Mathf.PerlinNoise(-position.x * 0.01f + timer, -position.z * 0.01f + timer);
+        return waveAmplitude * Mathf.PerlinNoise(position.x * 0.01f + timer, position.z * 0.01f + timer)
+             + waveAmplitude * Mathf.PerlinNoise(-position.x * 0.01f + timer, -position.z * 0.01f + timer);
     }
 
     public Vector3 GetNormalAtPosition(Vector3 position)

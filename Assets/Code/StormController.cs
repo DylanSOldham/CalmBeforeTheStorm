@@ -12,7 +12,7 @@ public class StormController : MonoBehaviour
     bool stormActive = false;
     float timeUntilChange = 0.0f;
 
-    const float DURATION = 30.0f;
+    const float DURATION = 15.0f;
 
     // Start is called before the first frame update
     void Start()
