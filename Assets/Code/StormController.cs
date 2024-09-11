@@ -7,7 +7,12 @@ public class StormController : MonoBehaviour
 {
     public TextMeshProUGUI state;
     public TextMeshProUGUI countDown;
-    
+    public GameObject light;
+    public Material Skybox;
+    public float fogStorm = 0.01f;
+    public float fogCalm = 0.0001f;
+
+    [SerializeField] private float fogDenstiyRep;
 
     bool stormActive = false;
     float timeUntilChange = 0.0f;
@@ -29,14 +34,18 @@ public class StormController : MonoBehaviour
             timeUntilChange = DURATION;
         }
 
-
         if(stormActive){
             state.text = "Survive";
-
-        }else{
-            state.text = "Storm Countdown";
-
+            fogDenstiyRep = Mathf.Lerp(RenderSettings.fogDensity, fogStorm, 0.005f);
         }
+        else
+        {
+            state.text = "Storm Countdown";
+            fogDenstiyRep = Mathf.Lerp(RenderSettings.fogDensity, fogCalm, 0.005f);
+        }
+
+        RenderSettings.fogDensity = fogDenstiyRep;
+
 
         int timeRep = (int)timeUntilChange;
         countDown.text = timeRep.ToString();
