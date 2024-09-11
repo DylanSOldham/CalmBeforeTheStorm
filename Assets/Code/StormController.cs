@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class StormController : MonoBehaviour
 {
+    public TextMeshProUGUI state;
+    public TextMeshProUGUI countDown;
+    
+
     bool stormActive = false;
     float timeUntilChange = 0.0f;
 
@@ -23,6 +28,19 @@ public class StormController : MonoBehaviour
             stormActive = !stormActive;
             timeUntilChange = DURATION;
         }
+
+
+        if(stormActive){
+            state.text = "Survive";
+
+        }else{
+            state.text = "Storm Countdown";
+
+        }
+
+        int timeRep = (int)timeUntilChange;
+        countDown.text = timeRep.ToString();
+
     }
 
     public bool IsStormActive()
