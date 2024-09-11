@@ -907,12 +907,12 @@ MonoBehaviour:
   Skybox: {fileID: 2100000, guid: ef0e61f4a0154fc47875144f32727622, type: 2}
   fogStorm: 0.01
   fogCalm: 0.0001
-  ship: {fileID: 773278572}
-  iceBergPrefab: {fileID: 6854080447347494721, guid: 2f90d3ba143e5384dad96ca101f311f4,
-    type: 3}
+  ship: {fileID: 0}
+  iceBergPrefab: {fileID: 0}
   timeBetweenIcebergSpawns: 1
   IcebergTimer: 0
   fogDenstiyRep: 0
+  stormActive: 0
 --- !u!4 &127430204
 Transform:
   m_ObjectHideFlags: 0
@@ -9722,6 +9722,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3209cea82f0b3f946a6b89d78c1867d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waterController: {fileID: 162430761}
+  ship: {fileID: 773278570}
   barrel: {fileID: 3078870226495961552, guid: 1c0376b8a6290434a90510d832b8aa74, type: 3}
 --- !u!1 &2067070724
 GameObject:
