@@ -108,6 +108,19 @@ public class WaterController : MonoBehaviour
         Vector3 tangent1 = point1 - position;
         Vector3 tangent2 = point2 - position;
 
-        return Vector3.Cross(tangent1, tangent2).normalized;
+        Vector3 normal1 = Vector3.Cross(tangent1, tangent2);
+
+        Vector3 point3 = position + 0.4f * Vector3.back;
+        point1.y = GetHeightAtPosition(point1);
+
+        Vector3 point4 = position + 0.4f * Vector3.left;
+        point2.y = GetHeightAtPosition(point2);
+
+        Vector3 tangent3 = point1 - position;
+        Vector3 tangent4 = point2 - position;
+
+        Vector3 normal2 = Vector3.Cross(tangent3, tangent4);
+
+        return (normal1 + normal2).normalized;
     }
 }
