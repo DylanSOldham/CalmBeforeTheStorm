@@ -11,7 +11,7 @@ public class WaterController : MonoBehaviour
     private Mesh mesh;
 
     private Vector3[] vertices;
-    private List<int> triangles;
+    private int[] triangles;
     private float timer = 0.0f;
 
     // Start is called before the first frame update
@@ -21,20 +21,21 @@ public class WaterController : MonoBehaviour
         GetComponent<MeshFilter>().mesh = mesh;
         vertices = new Vector3[WATER_VERTEX_WIDTH * WATER_VERTEX_WIDTH];
 
-        triangles = new List<int>();
+        List<int> triangles_list = new List<int>();
         for (int i = 0; i < WATER_VERTEX_WIDTH - 1; ++i)
         {
             for (int j = 0; j < WATER_VERTEX_WIDTH - 1; ++j)
             {
-                triangles.Add(j * WATER_VERTEX_WIDTH + i);
-                triangles.Add((j + 1) * WATER_VERTEX_WIDTH + (i + 1));
-                triangles.Add(j * WATER_VERTEX_WIDTH + (i + 1));
+                triangles_list.Add(j * WATER_VERTEX_WIDTH + i);
+                triangles_list.Add((j + 1) * WATER_VERTEX_WIDTH + (i + 1));
+                triangles_list.Add(j * WATER_VERTEX_WIDTH + (i + 1));
 
-                triangles.Add(j * WATER_VERTEX_WIDTH + i);
-                triangles.Add((j + 1) * WATER_VERTEX_WIDTH + i);
-                triangles.Add((j + 1) * WATER_VERTEX_WIDTH + (i + 1));
+                triangles_list.Add(j * WATER_VERTEX_WIDTH + i);
+                triangles_list.Add((j + 1) * WATER_VERTEX_WIDTH + i);
+                triangles_list.Add((j + 1) * WATER_VERTEX_WIDTH + (i + 1));
             }
         }
+        triangles = triangles_list.ToArray();
 
         RefreshVertices();
     }
@@ -48,6 +49,9 @@ public class WaterController : MonoBehaviour
     void RefreshVertices()
     {
         timer += 0.001f;
+
+        if (Time.deltaTime > 0.02)
+            Debug.Log(Time.deltaTime);
 
         mesh.Clear();
         for (int i = 0; i < WATER_VERTEX_WIDTH; i++)
@@ -64,7 +68,7 @@ public class WaterController : MonoBehaviour
         }
 
         mesh.vertices = vertices;
-        mesh.triangles = triangles.ToArray();
+        mesh.triangles = triangles;
         mesh.RecalculateNormals();
     }
     public float GetHeightAtPosition(Vector3 position) 
@@ -75,7 +79,6 @@ public class WaterController : MonoBehaviour
 
     public Vector3 GetNormalAtPosition(Vector3 position)
     {
-
         Vector3 point1 = position + 0.4f * Vector3.forward;
         point1.y = GetHeightAtPosition(point1);
 
