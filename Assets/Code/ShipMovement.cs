@@ -120,14 +120,12 @@ public class ShipMovement : MonoBehaviour
         }
 
         sailContracted = true;
-        openSail.SetActive(false);
         sailMoving = false;
     }
 
     private IEnumerator RetractSail()
     {
         sailMoving = true;
-        openSail.SetActive(true);
         for (t = 0; t < 1; t += Time.deltaTime / 1.5f)
         {
             Vector3 originalScale = new Vector3(1, 0, 1);
