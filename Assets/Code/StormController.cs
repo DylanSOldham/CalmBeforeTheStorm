@@ -7,7 +7,8 @@ public class StormController : MonoBehaviour
 {
     public TextMeshProUGUI state;
     public TextMeshProUGUI countDown;
-    
+    public GameObject light;
+    public Material Skybox;
 
     bool stormActive = false;
     float timeUntilChange = 0.0f;
@@ -32,10 +33,14 @@ public class StormController : MonoBehaviour
 
         if(stormActive){
             state.text = "Survive";
-
-        }else{
+            light.SetActive(false);
+            RenderSettings.fog = true;
+        }
+        else
+        {
             state.text = "Storm Countdown";
-
+            light.SetActive(true);
+            RenderSettings.fog = false;
         }
 
         int timeRep = (int)timeUntilChange;
