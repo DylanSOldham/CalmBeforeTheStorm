@@ -1,13 +1,11 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ShipMovement : MonoBehaviour
 {
     public WaterController waterController;
-    public GameObject openSail;
+    public Transform sailTransform;
 
     float shipForwardVelocity = 0.0f;
     const float shipForwardAcceleration = 0.001f;
@@ -39,23 +37,14 @@ public class ShipMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        openSail = GameObject.Find("sail_open");
+        sailTransform = GameObject.Find("sail_open").transform;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         MoveShip();
-
-        if (shipForwardVelocity >= 0.1f && sailContracted && !sailMoving)
-        {
-            StartCoroutine(RetractSail());
-        }
-
-        if (shipForwardVelocity <= 0.1f && !sailContracted && !sailMoving)
-        {
-            StartCoroutine(ContractSail());
-        }
+        UpdateSail();
 
         timeBetweenShots += Time.deltaTime;
 
@@ -99,47 +88,41 @@ public class ShipMovement : MonoBehaviour
             Destroy(particleEffect4, 1f);
         }
     }
-
-    private float t = 0;
-
-    private IEnumerator ContractSail()
+    
+    private void UpdateSail() // Called in FixedUpdate
     {
-        sailMoving = true;
-        for (t = 0; t < 1; t += Time.deltaTime / 1.5f)
+        if (sailMoving) return;
+        if (shipForwardVelocity >= 0.1f && sailContracted)
         {
-            Vector3 targetScale = new Vector3(1, 0, 1);
-            Vector3 newScale = Vector3.Lerp(Vector3.one, targetScale, t);
-            openSail.transform.localScale = newScale;
-
-            // Interpolate the Y position
-            float newY = Mathf.Lerp(10.54397f, 13f, t);
-            openSail.transform.localPosition = new Vector3(openSail.transform.localPosition.x, newY,
-                openSail.transform.localPosition.z);
-
-            yield return null;
+            StartCoroutine(MoveSail(true));
         }
-
-        sailContracted = true;
-        sailMoving = false;
+            
+        if (shipForwardVelocity <= 0.1f && !sailContracted)
+        {
+            StartCoroutine(MoveSail(false));
+        }
     }
 
-    private IEnumerator RetractSail()
+    private IEnumerator MoveSail(bool extend) // true => Extend Sail; false => Retract Sail;
     {
         sailMoving = true;
-        for (t = 0; t < 1; t += Time.deltaTime / 1.5f)
+        for (float t = 0; t < 1; t += Time.deltaTime / 1.5f)
         {
-            Vector3 originalScale = new Vector3(1, 0, 1);
-            Vector3 newScale = Vector3.Lerp(originalScale, Vector3.one, t);
-            openSail.transform.localScale = newScale;
-
-            var newY = Mathf.Lerp(13f, 10.54397f, t);
-            openSail.transform.localPosition = new Vector3(openSail.transform.localPosition.x, newY,
-                openSail.transform.localPosition.z);
-
+            // Interpolate the Y scale
+            var originalScale = extend ? new Vector3(1, 0, 1) : Vector3.one;
+            var targetScale = extend ? Vector3.one : new Vector3(1, 0, 1);
+            var newScale = Vector3.Lerp(originalScale, targetScale, t);
+            sailTransform.localScale = newScale;
+            
+            // Interpolate the local Y position
+            var originalY = extend ? 13f : 10.54397f;
+            var targetY = extend ? 10.54397f : 13f;
+            var newY = Mathf.Lerp(originalY, targetY, t);
+            var newPosition = new Vector3(sailTransform.localPosition.x, newY, sailTransform.localPosition.z);
+            sailTransform.localPosition = newPosition;
             yield return null;
         }
-
-        sailContracted = false;
+        sailContracted = !extend;
         sailMoving = false;
     }
 
