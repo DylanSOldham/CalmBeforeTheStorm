@@ -11,6 +11,8 @@ public class WaterController : MonoBehaviour
     public StormController stormController;
     private float waveAmplitude = 20.0f;
     private float targetWaveAmplitude = 20.0f;
+    private float waveSpeedMultiplier = 1.0f;
+    private float targetWaveSpeedMultiplier = 1.0f;
     
     private Mesh mesh;
 
@@ -52,17 +54,21 @@ public class WaterController : MonoBehaviour
         if (stormController.IsStormActive())
         {
             targetWaveAmplitude = 30.0f;
+            targetWaveSpeedMultiplier = 2.5f;
         }
         else {
             targetWaveAmplitude = 10.0f;
+            targetWaveSpeedMultiplier = 1.0f;
         }
         waveAmplitude = Mathf.Lerp(waveAmplitude, targetWaveAmplitude, 0.005f);
-        Debug.Log(waveAmplitude);
+        waveSpeedMultiplier = Mathf.Lerp(waveSpeedMultiplier, targetWaveSpeedMultiplier, 0.005f);
+
+        Debug.Log(waveSpeedMultiplier);
     }
 
     void RefreshVertices()
     {
-        timer += 0.001f;
+        timer += targetWaveSpeedMultiplier * 0.001f;
 
         if (Time.deltaTime > 0.02)
             Debug.Log(Time.deltaTime);
