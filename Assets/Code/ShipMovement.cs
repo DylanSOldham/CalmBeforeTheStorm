@@ -57,6 +57,8 @@ public class ShipMovement : MonoBehaviour
 
             //shoot cannonOne
             Vector3 offset = cannonOne.position + new Vector3(0, 0, 2f);
+            AudioSource cannon1AudioSource = cannonOne.GetComponent<AudioSource>();
+            cannon1AudioSource.Play();
             GameObject cannonBallOne = Instantiate(cannonBall, offset, cannonOne.rotation);
             GameObject particleEffect = Instantiate(particleEffectCannon, offset, cannonOne.rotation);
             Rigidbody cannonBallRigidBody = cannonBallOne.GetComponent<Rigidbody>();
@@ -65,6 +67,8 @@ public class ShipMovement : MonoBehaviour
 
             //shoot cannonTwo
             Vector3 offset2 = cannonTwo.position + new Vector3(0, 0, 2f);
+            AudioSource cannon2AudioSource = cannonTwo.GetComponent<AudioSource>();
+            cannon2AudioSource.Play();
             GameObject cannonBallTwo = Instantiate(cannonBall, offset2, cannonTwo.rotation);
             Rigidbody cannonBallRigidBody2 = cannonBallTwo.GetComponent<Rigidbody>();
             cannonBallRigidBody2.velocity = Vector3.forward * fireForce;
@@ -73,6 +77,8 @@ public class ShipMovement : MonoBehaviour
 
             //shoot cannonThree
             Vector3 offset3 = cannonThree.position + new Vector3(0, 0, -2f);
+            AudioSource cannon3AudioSource = cannonThree.GetComponent<AudioSource>();
+            cannon3AudioSource.Play();
             GameObject cannonBallThree = Instantiate(cannonBall, offset3, cannonThree.rotation);
             Rigidbody cannonBallRigidBody3 = cannonBallThree.GetComponent<Rigidbody>();
             cannonBallRigidBody3.velocity = -Vector3.forward * fireForce;
@@ -81,6 +87,8 @@ public class ShipMovement : MonoBehaviour
 
             //shoot cannonFour
             Vector3 offset4 = cannonFour.position + new Vector3(0, 0, -2f);
+            AudioSource cannon4AudioSource = cannonFour.GetComponent<AudioSource>();
+            cannon4AudioSource.Play();
             GameObject cannonBallFour = Instantiate(cannonBall, offset4, cannonFour.rotation);
             Rigidbody cannonBallRigidBody4 = cannonBallFour.GetComponent<Rigidbody>();
             cannonBallRigidBody4.velocity = -Vector3.forward * fireForce;
