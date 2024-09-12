@@ -113,8 +113,8 @@ public class WaterController : MonoBehaviour
         Vector3 point4 = position + 0.4f * Vector3.left;
         point2.y = GetHeightAtPosition(point2);
 
-        Vector3 tangent3 = point1 - position;
-        Vector3 tangent4 = point2 - position;
+        Vector3 tangent3 = point3 - position;
+        Vector3 tangent4 = point4 - position;
 
         Vector3 normal2 = Vector3.Cross(tangent3, tangent4);
 
