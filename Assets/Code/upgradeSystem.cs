@@ -81,9 +81,15 @@ public class upgradeSystem : MonoBehaviour
             healthKeyBind.SetActive(false);
             healthCostText.SetActive(false);
             healthBarrelImage.SetActive(false);
+            float newWidth = 500f;
 
+            Vector2 size = shipHPBlackBar.sizeDelta;
+            size.x = newWidth;
+            shipHPBlackBar.sizeDelta = size;
 
-
+            Vector2 size2 = shipHPGreenBar.sizeDelta;
+            size2.x = newWidth;
+            shipHPGreenBar.sizeDelta = size;
         }
 
 
