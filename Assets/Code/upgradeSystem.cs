@@ -12,6 +12,8 @@ public class upgradeSystem : MonoBehaviour
     public int barrels = 0;
     public TextMeshProUGUI barrelNum;
 
+    public GameObject ship;
+
     public Image cannonUpgradeHolder;
     public Image healthUpgradeHolder;
     public Image repairHolder;
@@ -27,6 +29,9 @@ public class upgradeSystem : MonoBehaviour
     public GameObject cannonBarrelImage;
     public GameObject healthBarrelImage;
     public GameObject repairBarrelImage;
+
+    public RectTransform cannonShotBlackBar;
+    public RectTransform cannonShotOrangeBar;
 
 
     // Start is called before the first frame update
@@ -44,21 +49,36 @@ public class upgradeSystem : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.G) && (upgradeCannon == false) && (barrels>=1))
         {
+            barrels -= 1;
             upgradeCannon = true;
             cannonUpgradeHolder.sprite = Resources.Load<Sprite>("Images/HolderGold");
             cannonKeyBind.SetActive(false);
             cannonCostText.SetActive(false);
             cannonBarrelImage.SetActive(false);
+            ShipMovement script = ship.GetComponent<ShipMovement>();
+            script.WaitBetweenShots = 1f;
+            float newWidth = 100f;
+
+            Vector2 size = cannonShotBlackBar.sizeDelta;
+            size.x = newWidth;
+            cannonShotBlackBar.sizeDelta = size;
+
+            Vector2 size2 = cannonShotOrangeBar.sizeDelta;
+            size2.x = newWidth;
+            cannonShotOrangeBar.sizeDelta = size;
         }
 
         if (Input.GetKeyDown(KeyCode.H) && (upgradeHealth == false) && (barrels>=1))
         {
+            barrels -= 1;
             upgradeHealth = true;
             healthUpgradeHolder.sprite = Resources.Load<Sprite>("Images/HolderGold");
             healthKeyBind.SetActive(false);
             healthCostText.SetActive(false);
             healthBarrelImage.SetActive(false);
         }
+
+
 
     }
 

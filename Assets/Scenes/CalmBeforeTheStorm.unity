@@ -11481,7 +11481,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f909d73f69251841b5d2c78c39384f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  barrels: 0
   barrelNum: {fileID: 411414238}
+  ship: {fileID: 773278570}
   cannonUpgradeHolder: {fileID: 412538538}
   healthUpgradeHolder: {fileID: 25989875}
   repairHolder: {fileID: 1332241478}
@@ -11494,6 +11496,8 @@ MonoBehaviour:
   cannonBarrelImage: {fileID: 1409392252}
   healthBarrelImage: {fileID: 1842414598}
   repairBarrelImage: {fileID: 823649994}
+  cannonShotBlackBar: {fileID: 1678835616}
+  cannonShotOrangeBar: {fileID: 277901550}
 --- !u!1001 &1918481560
 PrefabInstance:
   m_ObjectHideFlags: 0
