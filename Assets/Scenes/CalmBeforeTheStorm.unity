@@ -11499,6 +11499,8 @@ MonoBehaviour:
   repairBarrelImage: {fileID: 823649994}
   cannonShotBlackBar: {fileID: 1678835616}
   cannonShotOrangeBar: {fileID: 277901550}
+  shipHPBlackBar: {fileID: 2067070725}
+  shipHPGreenBar: {fileID: 289275461}
 --- !u!1001 &1918481560
 PrefabInstance:
   m_ObjectHideFlags: 0
