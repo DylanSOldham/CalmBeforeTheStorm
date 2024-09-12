@@ -6,6 +6,7 @@ public class icebergBehavior : MonoBehaviour
 {
     GameObject stormBehavior;
     WaterController waterController;
+    StormController stormController;
 
     private const float sinkHeight = -50.0f;
     private const float floatHeight = -8.0f;
@@ -15,14 +16,14 @@ public class icebergBehavior : MonoBehaviour
     void Start()
     {
         stormBehavior = GameObject.Find("/StormController");
+        stormController = stormBehavior.GetComponent<StormController>();
         waterController = GameObject.Find("/Water").GetComponent<WaterController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        StormController script = stormBehavior.GetComponent<StormController>();
-        if (!script.IsStormActive())
+        if (!stormController.IsStormActive())
         {
             heightAboveWater = Mathf.Lerp(heightAboveWater, sinkHeight, 0.002f);
 
