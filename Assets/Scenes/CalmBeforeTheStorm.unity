@@ -5373,6 +5373,7 @@ MonoBehaviour:
   particleEffectCannon: {fileID: 7223933822309062622, guid: 9951f7c5c7eddb345b452929a6ceb946,
     type: 3}
   orangeBar: {fileID: 277901550}
+  hpBar: {fileID: 289275461}
 --- !u!4 &773278572
 Transform:
   m_ObjectHideFlags: 0

@@ -81,6 +81,9 @@ public class upgradeSystem : MonoBehaviour
             healthKeyBind.SetActive(false);
             healthCostText.SetActive(false);
             healthBarrelImage.SetActive(false);
+            ShipMovement script = ship.GetComponent<ShipMovement>();
+            script.maxHp = 200f;
+            script.currentHp += 100f;
             float newWidth = 500f;
 
             Vector2 size = shipHPBlackBar.sizeDelta;
