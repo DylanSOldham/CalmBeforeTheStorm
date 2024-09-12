@@ -33,6 +33,9 @@ public class upgradeSystem : MonoBehaviour
     public RectTransform cannonShotBlackBar;
     public RectTransform cannonShotOrangeBar;
 
+    public RectTransform shipHPBlackBar;
+    public RectTransform shipHPGreenBar;
+
 
     // Start is called before the first frame update
     void Start()
@@ -68,6 +71,8 @@ public class upgradeSystem : MonoBehaviour
             cannonShotOrangeBar.sizeDelta = size;
         }
 
+
+
         if (Input.GetKeyDown(KeyCode.H) && (upgradeHealth == false) && (barrels>=1))
         {
             barrels -= 1;
@@ -76,6 +81,9 @@ public class upgradeSystem : MonoBehaviour
             healthKeyBind.SetActive(false);
             healthCostText.SetActive(false);
             healthBarrelImage.SetActive(false);
+
+
+
         }
 
 
