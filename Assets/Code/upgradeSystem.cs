@@ -9,7 +9,7 @@ public class upgradeSystem : MonoBehaviour
     private bool upgradeCannon = false;
     private bool upgradeHealth = false;
 
-    private int barrels = 0;
+    public int barrels = 0;
     public TextMeshProUGUI barrelNum;
 
     public Image cannonUpgradeHolder;
@@ -38,6 +38,55 @@ public class upgradeSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //set barrels
+        barrelNum.text = barrels.ToString();
+        checkAfford();
+
+        if (Input.GetKeyDown(KeyCode.G) && (upgradeCannon == false) && (barrels>=1))
+        {
+            upgradeCannon = true;
+            cannonUpgradeHolder.sprite = Resources.Load<Sprite>("Images/HolderGold");
+            cannonKeyBind.SetActive(false);
+            cannonCostText.SetActive(false);
+            cannonBarrelImage.SetActive(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.H) && (upgradeHealth == false) && (barrels>=1))
+        {
+            upgradeHealth = true;
+            healthUpgradeHolder.sprite = Resources.Load<Sprite>("Images/HolderGold");
+            healthKeyBind.SetActive(false);
+            healthCostText.SetActive(false);
+            healthBarrelImage.SetActive(false);
+        }
+
+    }
+
+    public void checkAfford()
+    {
+        //cannon Upgrade
+        if(barrels >= 1 && (upgradeCannon == false))
+        {
+            cannonUpgradeHolder.sprite = Resources.Load<Sprite>("Images/HolderGrayAbleToBuy");
+            cannonKeyBind.SetActive(true);
+        }
+        else if(upgradeCannon == false)
+        {
+            cannonUpgradeHolder.sprite = Resources.Load<Sprite>("Images/HolderGray");
+            cannonKeyBind.SetActive(false);
+        }
         
+        //health Upgrade
+        if(barrels >= 1 && (upgradeHealth == false))
+        {
+            healthUpgradeHolder.sprite = Resources.Load<Sprite>("Images/HolderGrayAbleToBuy");
+            healthKeyBind.SetActive(true);
+        }
+        else if(upgradeHealth == false)
+        {
+            healthUpgradeHolder.sprite = Resources.Load<Sprite>("Images/HolderGray");
+            healthKeyBind.SetActive(false);
+        }
+
     }
 }
