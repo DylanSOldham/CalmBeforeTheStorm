@@ -6,6 +6,7 @@ public class ShipMovement : MonoBehaviour
 {
     public WaterController waterController;
     public Transform sailTransform;
+    public upgradeSystem upgradeSystem;
 
     float shipForwardVelocity = 0.0f;
     const float shipForwardAcceleration = 0.001f;
@@ -34,7 +35,12 @@ public class ShipMovement : MonoBehaviour
 
     public Transform orangeBar;
 
+    public Transform hpBar;
+
     private AudioSource crashSound;
+
+    public float currentHp = 100;
+    public float maxHp = 100;
 
     // Start is called before the first frame update
     void Start()
@@ -101,7 +107,7 @@ public class ShipMovement : MonoBehaviour
         UpdateSail();
 
         changeBar();
-
+        changeHpBar();
     }
     
     private void UpdateSail() // Called in FixedUpdate
@@ -195,9 +201,41 @@ public class ShipMovement : MonoBehaviour
         }
     }
 
+    public void changeHpBar()
+    {
+        float percent = currentHp / maxHp;
+
+        // Clamp percent between 0 and 1 to avoid invalid scales
+        percent = Mathf.Clamp01(percent);
+
+        //Debug.Log($"{percent}");
+
+        if (percent >= 1)
+        {
+            hpBar.localScale = new Vector3(1, hpBar.localScale.y, hpBar.localScale.z);
+        }
+        else
+        {
+            hpBar.localScale = new Vector3(percent, hpBar.localScale.y, hpBar.localScale.z);
+        }
+    }
+
+
     private void OnTriggerEnter(Collider collider)
     {
-        shipForwardVelocity = 0.0f;
-        crashSound.Play();
+        if (collider.tag.Equals("Barrel"))
+        {
+            Destroy(collider.gameObject);
+            upgradeSystem.barrels += 1;
+            Debug.Log("I'm hitting a barrel and incremented upgrade!");
+        }
+
+        if (collider.tag.Equals("IceBerg"))
+        {
+            shipForwardVelocity = -2.5f;
+            crashSound.Play();
+            Debug.Log("I'm hitting an iceberg");
+            currentHp -= 34;
+        }
     }
 }

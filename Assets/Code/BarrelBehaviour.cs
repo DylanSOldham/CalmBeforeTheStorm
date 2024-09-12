@@ -22,6 +22,7 @@ public class BarrelBehaviour : MonoBehaviour
         var newPosition = transform.position;
         newPosition.y = waterController.GetHeightAtPosition(newPosition) - _yOffset - 1;
         transform.position = newPosition;
+        
     }
 
     private IEnumerator RiseAnimation()
