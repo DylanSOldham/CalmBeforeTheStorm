@@ -42,23 +42,6 @@ public class ResourceSpawner : MonoBehaviour
 
     private void UpdateResources()
     {
-        for (int i = 0; i < _resources.Count; i++)
-        {
-            var resource = _resources[i];
-            float yOffset = 0;
-            if (resource.T < 1)
-            {
-                resource.T += Time.deltaTime / 5f;
-                yOffset = Mathf.Lerp(0, 10, resource.T);
-            }
-            
-            Debug.Log(resource.T + " / " + yOffset);
-            
-            var obj = resource.GameObject;
-            var newPosition = obj.transform.position;
-            newPosition.y = waterController.GetHeightAtPosition(newPosition) - yOffset;
-            obj.transform.position = newPosition;
-        }
     }
 
     private void SpawnResources()

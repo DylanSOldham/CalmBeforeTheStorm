@@ -34,10 +34,13 @@ public class ShipMovement : MonoBehaviour
 
     public Transform orangeBar;
 
+    private AudioSource crashSound;
+
     // Start is called before the first frame update
     void Start()
     {
         sailTransform = GameObject.Find("sail_open").transform;
+        crashSound = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -190,5 +193,11 @@ public class ShipMovement : MonoBehaviour
         {
             orangeBar.localScale = new Vector3(percent, orangeBar.localScale.y, orangeBar.localScale.z);
         }
+    }
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        shipForwardVelocity = 0.0f;
+        crashSound.Play();
     }
 }
