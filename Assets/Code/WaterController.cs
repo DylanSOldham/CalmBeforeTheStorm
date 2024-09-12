@@ -62,8 +62,6 @@ public class WaterController : MonoBehaviour
         }
         waveAmplitude = Mathf.Lerp(waveAmplitude, targetWaveAmplitude, 0.005f);
         waveSpeedMultiplier = Mathf.Lerp(waveSpeedMultiplier, targetWaveSpeedMultiplier, 0.005f);
-
-        Debug.Log(waveSpeedMultiplier);
     }
 
     void RefreshVertices()

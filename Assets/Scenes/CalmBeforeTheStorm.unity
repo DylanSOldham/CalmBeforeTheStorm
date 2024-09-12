@@ -903,14 +903,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: {fileID: 947441690}
   countDown: {fileID: 658327522}
-  light: {fileID: 482032316}
-  Skybox: {fileID: 2100000, guid: ef0e61f4a0154fc47875144f32727622, type: 2}
-  fogStorm: 0.01
-  fogCalm: 0.0001
-  ship: {fileID: 0}
+  skybox: {fileID: 2100000, guid: ef0e61f4a0154fc47875144f32727622, type: 2}
+  ship: {fileID: 773278572}
+  light: {fileID: 482032318}
   iceBergPrefab: {fileID: 0}
   timeBetweenIcebergSpawns: 1
   IcebergTimer: 0
+  fogStorm: 0.01
+  fogCalm: 0.0001
+  lightStorm: 0.1
+  lightCalm: 0.0001
+  stormTransitionState: 0
   fogDenstiyRep: 0
   stormActive: 0
 --- !u!4 &127430204
@@ -2937,7 +2940,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &482032317
 MonoBehaviour:
   m_ObjectHideFlags: 0
