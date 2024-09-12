@@ -207,7 +207,7 @@ public class ShipMovement : MonoBehaviour
 
         if (collider.tag.Equals("IceBerg"))
         {
-            shipForwardVelocity = 0.0f;
+            shipForwardVelocity = -2.5f;
             crashSound.Play();
             Debug.Log("I'm hitting an iceberg");
         }
