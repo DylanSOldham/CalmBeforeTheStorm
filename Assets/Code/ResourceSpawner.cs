@@ -2,23 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct Resource
+{
+    public readonly GameObject GameObject;
+    public float T;
+
+    public Resource(GameObject gameObject)
+    {
+        GameObject = gameObject;
+        T = 0;
+    }
+}
+
 public class ResourceSpawner : MonoBehaviour
 {
     public WaterController waterController;
 
     public GameObject ship;
     public GameObject barrel;
-    private List<GameObject> _resources;
+    private List<Resource> _resources;
 
     private const int MaxResources = 10;
-    private const float SpawnRate = 3;
+    private const float SpawnRate = 40;
     private const float SpawnRadius = 300f;
-    private float _timer = 2;
+    private float _timer = 39;
 
     // Start is called before the first frame update
     void Start()
     {
-        _resources = new List<GameObject>();
+        _resources = new List<Resource>();
     }
 
     // Update is called once per frame
@@ -30,14 +42,22 @@ public class ResourceSpawner : MonoBehaviour
 
     private void UpdateResources()
     {
-        foreach (var resource in _resources)
+        for (int i = 0; i < _resources.Count; i++)
         {
-            // Orient the resource along the plane of the water surface
-            // resource.transform.rotation = Quaternion.identity;
-            // resource.transform.Rotate(Vector3.up, );
-            var newPosition = resource.transform.position;
-            newPosition.y = waterController.GetHeightAtPosition(newPosition);
-            resource.transform.position = newPosition;
+            var resource = _resources[i];
+            float yOffset = 0;
+            if (resource.T < 1)
+            {
+                resource.T += Time.deltaTime / 5f;
+                yOffset = Mathf.Lerp(0, 10, resource.T);
+            }
+            
+            Debug.Log(resource.T + " / " + yOffset);
+            
+            var obj = resource.GameObject;
+            var newPosition = obj.transform.position;
+            newPosition.y = waterController.GetHeightAtPosition(newPosition) - yOffset;
+            obj.transform.position = newPosition;
         }
     }
 
@@ -56,9 +76,11 @@ public class ResourceSpawner : MonoBehaviour
     private void SpawnBarrel()
     {
         var position = GetRandomPointInCircle(ship.transform.position, SpawnRadius);
-        _resources.Add(Instantiate(barrel, position, Quaternion.identity));
+        var instantiate = Instantiate(barrel, position, Quaternion.identity);
+        var resource = new Resource(instantiate);
+        _resources.Add(resource);
     }
-
+    
     private static Vector3 GetRandomPointInCircle(Vector3 center, float radius)
     {
         // Generate a random angle between 0 and 2π

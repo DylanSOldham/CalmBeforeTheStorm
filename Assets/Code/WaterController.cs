@@ -69,7 +69,6 @@ public class WaterController : MonoBehaviour
         timer += targetWaveSpeedMultiplier * 0.001f;
 
         if (Time.deltaTime > 0.02)
-            Debug.Log(Time.deltaTime);
 
         mesh.Clear();
         for (int i = 0; i < WATER_VERTEX_WIDTH; i++)
