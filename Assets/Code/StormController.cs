@@ -11,6 +11,9 @@ public class StormController : MonoBehaviour
     public Transform ship;
     public Light light;
 
+    Transform cameraTransform;
+    ParticleSystem rainParticleSystem;
+
     public GameObject iceBergPrefab;
     public float timeBetweenIcebergSpawns = 1f;
     public float IcebergTimer = 0;
@@ -33,7 +36,8 @@ public class StormController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        cameraTransform = GameObject.Find("Main Camera").GetComponent<Camera>().transform;
+        rainParticleSystem = GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -59,11 +63,14 @@ public class StormController : MonoBehaviour
                 Vector3 inFrontOfShip = ship.position + (-ship.right * randomNum);
                 GameObject iceBergInstance = Instantiate(iceBergPrefab, inFrontOfShip, Quaternion.identity);
             }
+
+            rainParticleSystem.Play();
         }
         else
         {
             state.text = "Storm Countdown";
             stormTransitionState = Mathf.Lerp(stormTransitionState, 0.0f, 0.005f);
+            rainParticleSystem.Stop();
         }
 
         RenderSettings.fogDensity = fogCalm + stormTransitionState * (fogStorm - fogCalm);
@@ -73,6 +80,8 @@ public class StormController : MonoBehaviour
 
         int timeRep = (int)timeUntilChange;
         countDown.text = timeRep.ToString();
+
+        transform.position = cameraTransform.position + 50.0f * Vector3.up;
     }
 
     public bool IsStormActive()
