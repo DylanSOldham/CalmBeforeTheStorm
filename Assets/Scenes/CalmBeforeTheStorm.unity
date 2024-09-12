@@ -5360,6 +5360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waterController: {fileID: 162430761}
   sailTransform: {fileID: 0}
+  upgradeSystem: {fileID: 1902242764}
   WaitBetweenShots: 2
   timeBetweenShots: 0
   cannonOne: {fileID: 54217062}
@@ -11481,6 +11482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f909d73f69251841b5d2c78c39384f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  barrels: 0
   barrelNum: {fileID: 411414238}
   cannonUpgradeHolder: {fileID: 412538538}
   healthUpgradeHolder: {fileID: 25989875}

@@ -41,7 +41,6 @@ public class ResourceSpawner : MonoBehaviour
     {
         var position = GetRandomPointInCircle(ship.transform.position, SpawnRadius);
         Instantiate(barrel, position, Quaternion.identity);
-        Debug.Log(position);
     }
     
     private static Vector3 GetRandomPointInCircle(Vector3 center, float radius)
