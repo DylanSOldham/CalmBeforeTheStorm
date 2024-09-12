@@ -10252,6 +10252,8 @@ MonoBehaviour:
     type: 3}
   orangeBar: {fileID: 277901550}
   hpBar: {fileID: 289275461}
+  currentHp: 100
+  maxHp: 100
 --- !u!4 &773278572
 Transform:
   m_ObjectHideFlags: 0
@@ -17132,7 +17134,7 @@ GameObject:
   - component: {fileID: 2058986099}
   - component: {fileID: 2058986100}
   m_Layer: 0
-  m_Name: ResourceSpawner
+  m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17168,6 +17170,7 @@ MonoBehaviour:
   waterController: {fileID: 162430761}
   ship: {fileID: 773278570}
   barrel: {fileID: 3078870226495961552, guid: 1c0376b8a6290434a90510d832b8aa74, type: 3}
+  shark: {fileID: 5925960515861282153, guid: 2fb93ff3c1250a74ca5f53a6bc162675, type: 3}
 --- !u!1 &2067070724
 GameObject:
   m_ObjectHideFlags: 0
