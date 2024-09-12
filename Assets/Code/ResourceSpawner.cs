@@ -2,36 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct Resource
-{
-    public readonly GameObject GameObject;
-    public float T;
-
-    public Resource(GameObject gameObject)
-    {
-        GameObject = gameObject;
-        T = 0;
-    }
-}
-
 public class ResourceSpawner : MonoBehaviour
 {
     public WaterController waterController;
 
     public GameObject ship;
     public GameObject barrel;
-    private List<Resource> _resources;
 
     private const int MaxResources = 10;
-    private const float SpawnRate = 40;
+    private const float SpawnRate = 3;
     private const float SpawnRadius = 300f;
-    private float _timer = 39;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        _resources = new List<Resource>();
-    }
+    private float _timer = 2;
 
     // Update is called once per frame
     void Update()
@@ -59,9 +40,8 @@ public class ResourceSpawner : MonoBehaviour
     private void SpawnBarrel()
     {
         var position = GetRandomPointInCircle(ship.transform.position, SpawnRadius);
-        var instantiate = Instantiate(barrel, position, Quaternion.identity);
-        var resource = new Resource(instantiate);
-        _resources.Add(resource);
+        Instantiate(barrel, position, Quaternion.identity);
+        Debug.Log(position);
     }
     
     private static Vector3 GetRandomPointInCircle(Vector3 center, float radius)
