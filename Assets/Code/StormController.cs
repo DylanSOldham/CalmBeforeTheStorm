@@ -25,7 +25,7 @@ public class StormController : MonoBehaviour
 
     [SerializeField] private float fogDenstiyRep;
 
-    public bool stormActive = false;
+    private bool stormActive = false;
     float timeUntilChange = 0.0f;
 
     const float DURATION = 15.0f;

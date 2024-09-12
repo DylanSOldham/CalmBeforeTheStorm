@@ -906,7 +906,8 @@ MonoBehaviour:
   skybox: {fileID: 2100000, guid: ef0e61f4a0154fc47875144f32727622, type: 2}
   ship: {fileID: 773278572}
   light: {fileID: 482032318}
-  iceBergPrefab: {fileID: 0}
+  iceBergPrefab: {fileID: 6854080447347494721, guid: 2f90d3ba143e5384dad96ca101f311f4,
+    type: 3}
   timeBetweenIcebergSpawns: 1
   IcebergTimer: 0
   fogStorm: 0.01
@@ -915,7 +916,6 @@ MonoBehaviour:
   lightCalm: 0.0001
   stormTransitionState: 0
   fogDenstiyRep: 0
-  stormActive: 0
 --- !u!4 &127430204
 Transform:
   m_ObjectHideFlags: 0
