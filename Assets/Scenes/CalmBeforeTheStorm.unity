@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 25989876}
   - component: {fileID: 25989875}
   m_Layer: 5
-  m_Name: background
+  m_Name: healthHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -565,7 +565,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &75303506
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3049,7 +3049,7 @@ GameObject:
   - component: {fileID: 411414239}
   - component: {fileID: 411414238}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: barrelNum
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3095,7 +3095,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3184,7 +3184,7 @@ GameObject:
   - component: {fileID: 412538539}
   - component: {fileID: 412538538}
   m_Layer: 5
-  m_Name: background
+  m_Name: cannonHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3260,7 +3260,7 @@ GameObject:
   - component: {fileID: 421931273}
   - component: {fileID: 421931272}
   m_Layer: 5
-  m_Name: cost
+  m_Name: healthCost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4160,7 +4160,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &561325525
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5698,7 +5698,7 @@ GameObject:
   - component: {fileID: 823649997}
   - component: {fileID: 823649996}
   m_Layer: 5
-  m_Name: barrel
+  m_Name: barrelRepair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8658,7 +8658,7 @@ GameObject:
   - component: {fileID: 1332241479}
   - component: {fileID: 1332241478}
   m_Layer: 5
-  m_Name: background
+  m_Name: repairHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8880,7 +8880,7 @@ GameObject:
   - component: {fileID: 1409392255}
   - component: {fileID: 1409392254}
   m_Layer: 5
-  m_Name: barrel
+  m_Name: barrelCannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9008,7 +9008,7 @@ GameObject:
   - component: {fileID: 1416229126}
   - component: {fileID: 1416229125}
   m_Layer: 5
-  m_Name: cost
+  m_Name: repairCost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9691,7 +9691,7 @@ GameObject:
   - component: {fileID: 1578744540}
   - component: {fileID: 1578744539}
   m_Layer: 5
-  m_Name: cost
+  m_Name: cannonCost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9831,7 +9831,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1579933597
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10911,7 +10911,7 @@ GameObject:
   - component: {fileID: 1842414601}
   - component: {fileID: 1842414600}
   m_Layer: 5
-  m_Name: barrel
+  m_Name: barrelHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11273,6 +11273,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1902242762}
   - component: {fileID: 1902242763}
+  - component: {fileID: 1902242764}
   m_Layer: 5
   m_Name: Upgrades
   m_TagString: Untagged
@@ -11330,6 +11331,31 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1902242764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902242761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f909d73f69251841b5d2c78c39384f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barrelNum: {fileID: 411414238}
+  cannonUpgradeHolder: {fileID: 412538538}
+  healthUpgradeHolder: {fileID: 25989875}
+  repairHolder: {fileID: 1332241478}
+  cannonKeyBind: {fileID: 1579933596}
+  healthKeyBind: {fileID: 561325524}
+  repairKeyBind: {fileID: 75303505}
+  cannonCostText: {fileID: 1578744537}
+  healthCostText: {fileID: 421931270}
+  repairCostText: {fileID: 1416229123}
+  cannonBarrelImage: {fileID: 1409392252}
+  healthBarrelImage: {fileID: 1842414598}
+  repairBarrelImage: {fileID: 823649994}
 --- !u!1001 &1918481560
 PrefabInstance:
   m_ObjectHideFlags: 0
