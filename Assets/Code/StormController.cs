@@ -68,8 +68,13 @@ public class StormController : MonoBehaviour
             if (IcebergTimer >= timeBetweenIcebergSpawns)
             {
                 IcebergTimer = 0f;
-                float randomNum = Random.Range(150f, 300f);
-                Vector3 inFrontOfShip = ship.position + (-ship.right * randomNum);
+                float randomNum = Random.Range(125f, 200f);
+                float randomNum2 = Random.Range(-80f,80f);
+
+                Vector3 distanceOffset = (-ship.right * randomNum);
+                Vector3 xOffset = ship.forward * (randomNum2);
+                Vector3 inFrontOfShip = ship.position + distanceOffset + xOffset;
+
                 GameObject iceBergInstance = Instantiate(iceBergPrefab, inFrontOfShip, Quaternion.identity);
             }
 
