@@ -5,6 +5,14 @@ using TMPro;
 
 public class StormController : MonoBehaviour
 {
+    private AudioSource audioSource1;
+    private AudioSource audioSource2;
+    private AudioSource audioSource3;
+
+    public AudioClip clip1;
+    public AudioClip clip2;
+    public AudioClip clip3;
+
     public TextMeshProUGUI state;
     public TextMeshProUGUI countDown;
     public Material skybox;
@@ -42,6 +50,15 @@ public class StormController : MonoBehaviour
     {
         cameraTransform = GameObject.Find("Main Camera").GetComponent<Camera>().transform;
         rainParticleSystem = GetComponent<ParticleSystem>();
+        AudioSource[] audioSources = GetComponents<AudioSource>();
+        audioSource1 = audioSources[0];
+        audioSource2 = audioSources[1];
+        audioSource3 = audioSources[2];
+
+        // Assign audio clips (or set them in the Inspector)
+        audioSource1.clip = clip1;
+        audioSource2.clip = clip2;
+        audioSource3.clip = clip3;
     }
 
     // Update is called once per frame
@@ -76,8 +93,11 @@ public class StormController : MonoBehaviour
                 Vector3 inFrontOfShip = ship.position + distanceOffset + xOffset;
 
                 GameObject iceBergInstance = Instantiate(iceBergPrefab, inFrontOfShip, Quaternion.identity);
+                
             }
-
+            audioSource1.Play();
+            audioSource2.Play();
+            audioSource3.Stop();
             rainParticleSystem.Play();
         }
         else
@@ -85,6 +105,10 @@ public class StormController : MonoBehaviour
             state.text = "Storm Countdown";
             stormTransitionState = Mathf.Lerp(stormTransitionState, 0.0f, 0.005f);
             rainParticleSystem.Stop();
+
+            audioSource1.Stop();
+            audioSource2.Stop();
+            audioSource3.Play();
         }
 
         RenderSettings.fogDensity = fogCalm + stormTransitionState * (fogStorm - fogCalm);

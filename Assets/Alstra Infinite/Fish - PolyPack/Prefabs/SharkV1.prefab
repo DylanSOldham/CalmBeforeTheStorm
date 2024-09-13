@@ -115,9 +115,10 @@ MonoBehaviour:
   waterController: {fileID: 0}
   stormController: {fileID: 0}
   shipTransform: {fileID: 0}
+  shipMovement: {fileID: 0}
   audioSource: {fileID: 0}
   sharkDie: {fileID: 8300000, guid: 185c3fef7fd44b2499a508b7c2b6473d, type: 3}
-  sharkHit: {fileID: 8300000, guid: 185c3fef7fd44b2499a508b7c2b6473d, type: 3}
+  sharkHit: {fileID: 8300000, guid: bf929e54645d28e47813d1e5cdecc70f, type: 3}
 --- !u!82 &2069379885418532726
 AudioSource:
   m_ObjectHideFlags: 0
