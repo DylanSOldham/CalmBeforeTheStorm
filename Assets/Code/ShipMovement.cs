@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class ShipMovement : MonoBehaviour
 {
@@ -41,6 +43,10 @@ public class ShipMovement : MonoBehaviour
 
     public float currentHp = 100;
     public float maxHp = 100;
+
+    public TextMeshProUGUI deathText;
+    public Image blackScreenImage;
+    public float fadeDuration = 2f;
 
     // Start is called before the first frame update
     void Start()
@@ -218,6 +224,50 @@ public class ShipMovement : MonoBehaviour
         {
             hpBar.localScale = new Vector3(percent, hpBar.localScale.y, hpBar.localScale.z);
         }
+
+        if(currentHp <= 0)
+        {
+            StartCoroutine(showDeath());
+        }
+    }
+
+    private IEnumerator showDeath()
+    {
+        Color textColor = deathText.color;
+        float elapsedTime = 0f;
+
+        // Fade in over the duration
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(0, 1, elapsedTime / fadeDuration);  // Calculate alpha
+            deathText.color = new Color(textColor.r, textColor.g, textColor.b, alpha);  // Apply new alpha
+            yield return null; // Wait until the next frame
+        }
+
+        // Ensure the final alpha is fully visible
+        deathText.color = new Color(textColor.r, textColor.g, textColor.b, 1);
+
+        StartCoroutine(blackScreen());
+    }
+
+    private IEnumerator blackScreen()
+    {
+        Color imageColor = blackScreenImage.color;
+        float elapsedTime = 0f;
+
+        // Fade in over the duration
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(0, 1, elapsedTime / fadeDuration);  // Calculate alpha
+            blackScreenImage.color = new Color(imageColor.r, imageColor.g, imageColor.b, alpha);  // Apply new alpha
+            yield return null; // Wait until the next frame
+        }
+
+        // Ensure the final alpha is fully visible
+        blackScreenImage.color = new Color(imageColor.r, imageColor.g, imageColor.b, 1);
+
     }
 
 
