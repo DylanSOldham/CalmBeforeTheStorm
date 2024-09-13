@@ -14,6 +14,7 @@ public class BarrelBehaviour : MonoBehaviour
     {
         StartCoroutine(RiseAnimation());
         waterController = GameObject.Find("/Water").GetComponent<WaterController>();
+        
     }
 
     // Update is called once per frame
