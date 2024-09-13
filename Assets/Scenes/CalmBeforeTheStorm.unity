@@ -17521,6 +17521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterController: {fileID: 162430761}
+  stormController: {fileID: 127430203}
   ship: {fileID: 773278570}
   barrel: {fileID: 3078870226495961552, guid: 1c0376b8a6290434a90510d832b8aa74, type: 3}
   shark: {fileID: 5925960515861282153, guid: 2fb93ff3c1250a74ca5f53a6bc162675, type: 3}

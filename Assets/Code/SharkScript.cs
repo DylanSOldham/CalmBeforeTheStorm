@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SharkScript : MonoBehaviour
 {
@@ -85,10 +87,21 @@ public class SharkScript : MonoBehaviour
     {
         for (float t = 0; t < 1; t += Time.deltaTime / RiseDuration)
         {
-            _yOffset = -Mathf.Lerp(20, 0, t);
+            _yOffset = Mathf.Lerp(0, 20, t);
             yield return null;
         }
         
         Destroy(gameObject);
+    }
+    
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("CannonBall"))
+        {
+            Destroy(other.gameObject);
+            Destroy(this.gameObject);
+            
+            Debug.Log("Die, you bastard!");
+        }
     }
 }
