@@ -22,6 +22,10 @@ public class SharkScript : MonoBehaviour
     private const float BaseSpeed = 10.0f;
     private const float DirectionChangeInterval = 2.0f;
     private float _timeSinceLastDirectionChange;
+    private bool _isKnockedBack;
+    private const float KnockbackTime = 3f;
+    private const float KnockbackSpeed = 25.0f;
+    private Vector3 _knockbackDirection;
 
     private void Start()
     {
@@ -40,36 +44,39 @@ public class SharkScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var newPosition = transform.position;
-        newPosition.y = waterController.GetHeightAtPosition(newPosition) - _yOffset - 1;
-
-        // Calculate direction towards the ship and apply random offset
-        var directionToShip = (shipTransform.position - transform.position).normalized + _randomDirectionOffset;
-
-        // Randomize speed slightly
-        var speed = BaseSpeed * _randomSpeedFactor;
-        
-        newPosition += directionToShip * (speed * Time.deltaTime);
-
-        transform.position = newPosition;
-
-        // Make the shark face the ship
-        var targetRotation = Quaternion.LookRotation(directionToShip);
-        targetRotation *= Quaternion.Euler(0, 90, 0);
-
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 2.0f);
-
-        // Randomly adjust direction and speed at intervals
-        _timeSinceLastDirectionChange += Time.deltaTime;
-        if (_timeSinceLastDirectionChange >= DirectionChangeInterval)
+        if (!_isKnockedBack)
         {
-            ChangeDirectionAndSpeed();
-            _timeSinceLastDirectionChange = 0.0f;
-        }
+            var newPosition = transform.position;
+            newPosition.y = waterController.GetHeightAtPosition(newPosition) - _yOffset - 1;
+
+            // Calculate direction towards the ship and apply random offset
+            var directionToShip = (shipTransform.position - transform.position).normalized + _randomDirectionOffset;
+
+            // Randomize speed slightly
+            var speed = BaseSpeed * _randomSpeedFactor;
         
-        if (!stormController.IsStormActive()) 
-        {
-            StartCoroutine(SinkAnimation());
+            newPosition += directionToShip * (speed * Time.deltaTime);
+
+            transform.position = newPosition;
+
+            // Make the shark face the ship
+            var targetRotation = Quaternion.LookRotation(directionToShip);
+            targetRotation *= Quaternion.Euler(0, 90, 0);
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 2.0f);
+
+            // Randomly adjust direction and speed at intervals
+            _timeSinceLastDirectionChange += Time.deltaTime;
+            if (_timeSinceLastDirectionChange >= DirectionChangeInterval)
+            {
+                ChangeDirectionAndSpeed();
+                _timeSinceLastDirectionChange = 0.0f;
+            }
+
+            if (!stormController.IsStormActive()) 
+            {
+                StartCoroutine(SinkAnimation());
+            }
         }
     }
 
@@ -100,7 +107,7 @@ public class SharkScript : MonoBehaviour
         
         Destroy(gameObject);
     }
-    
+
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("CannonBall"))
@@ -114,11 +121,31 @@ public class SharkScript : MonoBehaviour
 
         if (other.gameObject.CompareTag("Ship"))
         {
-            GetComponent<MeshRenderer>().enabled = false;
-            GetComponent<MeshCollider>().enabled = false;
             audioSource.PlayOneShot(sharkHit);
-            Destroy(this.gameObject, 2f);
             shipMovement.currentHp -= 10;
+            StartCoroutine(Knockback());
         }
+    }
+
+    private IEnumerator Knockback()
+    {
+        _isKnockedBack = true;
+
+        // Get direction away from the ship
+        _knockbackDirection = (transform.position - shipTransform.position).normalized;
+
+        var knockbackTimer = 0f;
+
+        while (knockbackTimer < KnockbackTime)
+        {
+            knockbackTimer += Time.deltaTime;
+
+            // Move the shark backwards
+            transform.position += _knockbackDirection * (KnockbackSpeed * Time.deltaTime);
+
+            yield return null;
+        }
+
+        _isKnockedBack = false;
     }
 }
