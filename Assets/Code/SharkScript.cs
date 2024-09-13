@@ -47,7 +47,7 @@ public class SharkScript : MonoBehaviour
         if (!_isKnockedBack)
         {
             var newPosition = transform.position;
-            newPosition.y = waterController.GetHeightAtPosition(newPosition) - _yOffset - 1;
+            newPosition.y = waterController.GetHeightAtPosition(newPosition) - _yOffset;
 
             // Calculate direction towards the ship and apply random offset
             var directionToShip = (shipTransform.position - transform.position).normalized + _randomDirectionOffset;
