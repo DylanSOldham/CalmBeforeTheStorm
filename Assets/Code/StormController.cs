@@ -31,7 +31,7 @@ public class StormController : MonoBehaviour
     private bool stormActive = false;
     float timeUntilChange = 0.0f;
 
-    const float DURATION = 15.0f;
+    const float DURATION = 25.0f;
 
     public int rounds = 1;
 

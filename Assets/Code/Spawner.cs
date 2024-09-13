@@ -3,6 +3,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public WaterController waterController;
+    public StormController stormController;
 
     public GameObject ship;
     public GameObject barrel;
@@ -21,8 +22,14 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SpawnResources();
-        SpawnEnemies();
+        if (stormController.IsStormActive())
+        {
+            SpawnEnemies();
+        }
+        else
+        {
+            SpawnResources();
+        }
     }
 
     private void SpawnResources()

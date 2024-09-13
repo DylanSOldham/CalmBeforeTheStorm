@@ -4,6 +4,7 @@ using UnityEngine;
 public class SharkScript : MonoBehaviour
 {
     public WaterController waterController;
+    public StormController stormController;
     public Transform shipTransform;
 
     private float _yOffset;
@@ -20,6 +21,7 @@ public class SharkScript : MonoBehaviour
         StartCoroutine(RiseAnimation());
         waterController = GameObject.Find("/Water").GetComponent<WaterController>();
         shipTransform = GameObject.Find("/Ship").transform;
+        stormController = GameObject.Find("/StormController").GetComponent<StormController>();
 
         // Start with a random offset for the direction
         _randomDirectionOffset = Random.insideUnitSphere * 0.2f;
@@ -55,6 +57,11 @@ public class SharkScript : MonoBehaviour
             ChangeDirectionAndSpeed();
             _timeSinceLastDirectionChange = 0.0f;
         }
+        
+        if (!stormController.IsStormActive()) 
+        {
+            StartCoroutine(SinkAnimation());
+        }
     }
 
     private void ChangeDirectionAndSpeed()
@@ -72,5 +79,16 @@ public class SharkScript : MonoBehaviour
             _yOffset = Mathf.Lerp(20, 0, t);
             yield return null;
         }
+    }
+
+    private IEnumerator SinkAnimation()
+    {
+        for (float t = 0; t < 1; t += Time.deltaTime / RiseDuration)
+        {
+            _yOffset = -Mathf.Lerp(20, 0, t);
+            yield return null;
+        }
+        
+        Destroy(gameObject);
     }
 }
