@@ -6312,7 +6312,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9fbe728598fdabb40ab59012b2583d1d, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.75
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -6408,7 +6408,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d984cfd5dd20d084ca45c163cf7c497a, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.75
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -17269,8 +17269,8 @@ MonoBehaviour:
   barrels: 0
   barrelNum: {fileID: 411414238}
   repairCost: 1
-  cannonUpgradeCost: 1
-  healthUpgradeCost: 1
+  cannonUpgradeCost: 5
+  healthUpgradeCost: 5
   ship: {fileID: 773278570}
   cannonUpgradeHolder: {fileID: 412538538}
   healthUpgradeHolder: {fileID: 25989875}
