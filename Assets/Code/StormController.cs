@@ -33,6 +33,10 @@ public class StormController : MonoBehaviour
 
     const float DURATION = 15.0f;
 
+    public int rounds = 1;
+
+    public TextMeshProUGUI roundsText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +51,11 @@ public class StormController : MonoBehaviour
         IcebergTimer += Time.fixedDeltaTime;
 
         if (timeUntilChange < 0) {
+            if(stormActive == true)
+            {
+                rounds++;
+                roundsText.text = rounds.ToString();
+            }
             stormActive = !stormActive;
             timeUntilChange = DURATION;
         }

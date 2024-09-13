@@ -1265,6 +1265,8 @@ MonoBehaviour:
   lightCalm: 0.0001
   stormTransitionState: 0
   fogDenstiyRep: 0
+  rounds: 1
+  roundsText: {fileID: 143767152}
 --- !u!4 &127430204
 Transform:
   m_ObjectHideFlags: 0
