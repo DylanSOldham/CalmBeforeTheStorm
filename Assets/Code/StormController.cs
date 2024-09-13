@@ -72,13 +72,13 @@ public class StormController : MonoBehaviour
             {
                 rounds++;
                 roundsText.text = rounds.ToString();
-                audioSource1.Play();
-                audioSource2.Play();
-                audioSource3.Stop();
-            }else{
                 audioSource1.Stop();
                 audioSource2.Stop();
                 audioSource3.Play();
+            }else{
+                audioSource1.Play();
+                audioSource2.Play();
+                audioSource3.Stop();
             }
             stormActive = !stormActive;
             timeUntilChange = DURATION;
