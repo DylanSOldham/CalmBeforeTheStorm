@@ -12,6 +12,10 @@ public class upgradeSystem : MonoBehaviour
     public int barrels = 0;
     public TextMeshProUGUI barrelNum;
 
+    public int repairCost = 1;
+    public int cannonUpgradeCost = 1;
+    public int healthUpgradeCost = 1;
+
     public GameObject ship;
 
     public Image cannonUpgradeHolder;
@@ -26,6 +30,10 @@ public class upgradeSystem : MonoBehaviour
     public GameObject healthCostText;
     public GameObject repairCostText;
 
+    public TextMeshProUGUI cannonCostTextText;
+    public TextMeshProUGUI healthCostTextText;
+    public TextMeshProUGUI repairCostTextText;
+
     public GameObject cannonBarrelImage;
     public GameObject healthBarrelImage;
     public GameObject repairBarrelImage;
@@ -36,29 +44,33 @@ public class upgradeSystem : MonoBehaviour
     public RectTransform shipHPBlackBar;
     public RectTransform shipHPGreenBar;
 
+    ShipMovement script;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        cannonCostTextText.text = cannonUpgradeCost.ToString();
+        healthCostTextText.text = healthUpgradeCost.ToString();
+        repairCostTextText.text = repairCostText.ToString();
+        script = ship.GetComponent<ShipMovement>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //set barrels
+        
         barrelNum.text = barrels.ToString();
         checkAfford();
 
-        if (Input.GetKeyDown(KeyCode.G) && (upgradeCannon == false) && (barrels>=1))
+        if (Input.GetKeyDown(KeyCode.G) && (upgradeCannon == false) && (barrels>=cannonUpgradeCost))
         {
-            barrels -= 1;
+            barrels -= cannonUpgradeCost;
             upgradeCannon = true;
             cannonUpgradeHolder.sprite = Resources.Load<Sprite>("Images/HolderGold");
             cannonKeyBind.SetActive(false);
             cannonCostText.SetActive(false);
             cannonBarrelImage.SetActive(false);
-            ShipMovement script = ship.GetComponent<ShipMovement>();
+            //ShipMovement script = ship.GetComponent<ShipMovement>();
             script.WaitBetweenShots = 1f;
             float newWidth = 100f;
 
@@ -71,17 +83,15 @@ public class upgradeSystem : MonoBehaviour
             cannonShotOrangeBar.sizeDelta = size;
         }
 
-
-
-        if (Input.GetKeyDown(KeyCode.H) && (upgradeHealth == false) && (barrels>=1))
+        if (Input.GetKeyDown(KeyCode.H) && (upgradeHealth == false) && (barrels>=healthUpgradeCost))
         {
-            barrels -= 1;
+            barrels -= healthUpgradeCost;
             upgradeHealth = true;
             healthUpgradeHolder.sprite = Resources.Load<Sprite>("Images/HolderGold");
             healthKeyBind.SetActive(false);
             healthCostText.SetActive(false);
             healthBarrelImage.SetActive(false);
-            ShipMovement script = ship.GetComponent<ShipMovement>();
+            //ShipMovement script = ship.GetComponent<ShipMovement>();
             script.maxHp = 200f;
             script.currentHp += 100f;
             float newWidth = 500f;
@@ -95,6 +105,16 @@ public class upgradeSystem : MonoBehaviour
             shipHPGreenBar.sizeDelta = size;
         }
 
+        //ShipMovement script = ship.GetComponent<ShipMovement>();
+        if(Input.GetKeyDown(KeyCode.J) && barrels >= repairCost && (script.currentHp < script.maxHp))
+        {
+            barrels -= repairCost;
+            script.currentHp = script.maxHp;
+            repairCost *= 2;
+            Debug.Log($"{repairCost}");
+            repairCostTextText.text = repairCost.ToString();
+        }
+
 
 
     }
@@ -102,7 +122,7 @@ public class upgradeSystem : MonoBehaviour
     public void checkAfford()
     {
         //cannon Upgrade
-        if(barrels >= 1 && (upgradeCannon == false))
+        if(barrels >= cannonUpgradeCost && (upgradeCannon == false))
         {
             cannonUpgradeHolder.sprite = Resources.Load<Sprite>("Images/HolderGrayAbleToBuy");
             cannonKeyBind.SetActive(true);
@@ -114,7 +134,7 @@ public class upgradeSystem : MonoBehaviour
         }
         
         //health Upgrade
-        if(barrels >= 1 && (upgradeHealth == false))
+        if(barrels >= healthUpgradeCost && (upgradeHealth == false))
         {
             healthUpgradeHolder.sprite = Resources.Load<Sprite>("Images/HolderGrayAbleToBuy");
             healthKeyBind.SetActive(true);
@@ -123,6 +143,31 @@ public class upgradeSystem : MonoBehaviour
         {
             healthUpgradeHolder.sprite = Resources.Load<Sprite>("Images/HolderGray");
             healthKeyBind.SetActive(false);
+        }
+
+        //ShipMovement script = ship.GetComponent<ShipMovement>();
+        if(script.currentHp < script.maxHp && barrels >= repairCost)
+        {
+            repairHolder.sprite = Resources.Load<Sprite>("Images/HolderGrayAbleToBuy");
+            repairKeyBind.SetActive(true);
+            repairCostText.SetActive(true);
+            repairCostTextText.text = repairCost.ToString();
+            repairBarrelImage.SetActive(true);
+        }
+        else if(script.currentHp < script.maxHp && barrels < repairCost)
+        {
+            repairHolder.sprite = Resources.Load<Sprite>("Images/HolderGray");
+            repairKeyBind.SetActive(false);
+            repairCostText.SetActive(true);
+            repairCostTextText.text = repairCost.ToString();
+            repairBarrelImage.SetActive(true);
+        }
+        else if(script.currentHp == script.maxHp)
+        {
+            repairHolder.sprite = Resources.Load<Sprite>("Images/HolderGold");
+            repairKeyBind.SetActive(false);
+            repairCostText.SetActive(false);
+            repairBarrelImage.SetActive(false);
         }
 
     }
