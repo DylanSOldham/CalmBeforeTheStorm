@@ -7,6 +7,8 @@ TagManager:
   - Barrel
   - IceBerg
   - Ship
+  - Shark
+  - CannonBall
   layers:
   - Default
   - TransparentFX

@@ -112,4 +112,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterController: {fileID: 0}
+  stormController: {fileID: 0}
   shipTransform: {fileID: 0}
