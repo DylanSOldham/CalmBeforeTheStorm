@@ -72,6 +72,13 @@ public class StormController : MonoBehaviour
             {
                 rounds++;
                 roundsText.text = rounds.ToString();
+                audioSource1.Play();
+                audioSource2.Play();
+                audioSource3.Stop();
+            }else{
+                audioSource1.Stop();
+                audioSource2.Stop();
+                audioSource3.Play();
             }
             stormActive = !stormActive;
             timeUntilChange = DURATION;
@@ -95,9 +102,7 @@ public class StormController : MonoBehaviour
                 GameObject iceBergInstance = Instantiate(iceBergPrefab, inFrontOfShip, Quaternion.identity);
                 
             }
-            audioSource1.Play();
-            audioSource2.Play();
-            audioSource3.Stop();
+            
             rainParticleSystem.Play();
         }
         else
@@ -105,10 +110,6 @@ public class StormController : MonoBehaviour
             state.text = "Storm Countdown";
             stormTransitionState = Mathf.Lerp(stormTransitionState, 0.0f, 0.005f);
             rainParticleSystem.Stop();
-
-            audioSource1.Stop();
-            audioSource2.Stop();
-            audioSource3.Play();
         }
 
         RenderSettings.fogDensity = fogCalm + stormTransitionState * (fogStorm - fogCalm);
