@@ -8,7 +8,12 @@ public class SharkScript : MonoBehaviour
     public WaterController waterController;
     public StormController stormController;
     public Transform shipTransform;
+    public ShipMovement shipMovement;
 
+    public AudioSource audioSource;
+    public AudioClip sharkDie;
+    public AudioClip sharkHit;
+    
     private float _yOffset;
     private const float RiseDuration = 3.0f;
     
@@ -22,12 +27,14 @@ public class SharkScript : MonoBehaviour
     {
         StartCoroutine(RiseAnimation());
         waterController = GameObject.Find("/Water").GetComponent<WaterController>();
-        shipTransform = GameObject.Find("/Ship").transform;
+        shipMovement = GameObject.Find("/Ship").GetComponent<ShipMovement>();
+        shipTransform = shipMovement.transform;
         stormController = GameObject.Find("/StormController").GetComponent<StormController>();
 
         // Start with a random offset for the direction
         _randomDirectionOffset = Random.insideUnitSphere * 0.2f;
         _randomDirectionOffset.y = 0;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -98,10 +105,20 @@ public class SharkScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("CannonBall"))
         {
+            GetComponent<MeshRenderer>().enabled = false;
+            GetComponent<MeshCollider>().enabled = false;
+            audioSource.PlayOneShot(sharkDie);
+            Destroy(this.gameObject, 2f);
             Destroy(other.gameObject);
-            Destroy(this.gameObject);
-            
-            Debug.Log("Die, you bastard!");
+        }
+
+        if (other.gameObject.CompareTag("Ship"))
+        {
+            GetComponent<MeshRenderer>().enabled = false;
+            GetComponent<MeshCollider>().enabled = false;
+            audioSource.PlayOneShot(sharkHit);
+            Destroy(this.gameObject, 2f);
+            shipMovement.currentHp -= 10;
         }
     }
 }

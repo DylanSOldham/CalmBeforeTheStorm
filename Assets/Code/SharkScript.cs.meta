@@ -3,7 +3,12 @@ guid: fbb7ff83a8dbe3f4c89df9283f354906
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - waterController: {instanceID: 0}
+  - stormController: {instanceID: 0}
+  - shipTransform: {instanceID: 0}
+  - deathSound: {instanceID: 0}
+  - deathSoundClip: {fileID: 8300000, guid: 185c3fef7fd44b2499a508b7c2b6473d, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
