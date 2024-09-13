@@ -69,7 +69,7 @@ public class StormController : MonoBehaviour
             {
                 IcebergTimer = 0f;
                 float randomNum = Random.Range(125f, 200f);
-                float randomNum2 = Random.Range(-80f,80f);
+                float randomNum2 = Random.Range(-125f,125f);
 
                 Vector3 distanceOffset = (-ship.right * randomNum);
                 Vector3 xOffset = ship.forward * (randomNum2);

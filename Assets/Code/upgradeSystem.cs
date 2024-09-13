@@ -13,8 +13,8 @@ public class upgradeSystem : MonoBehaviour
     public TextMeshProUGUI barrelNum;
 
     public int repairCost = 1;
-    public int cannonUpgradeCost = 1;
-    public int healthUpgradeCost = 1;
+    public int cannonUpgradeCost = 5;
+    public int healthUpgradeCost = 5;
 
     public GameObject ship;
 
