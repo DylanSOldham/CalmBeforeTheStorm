@@ -15,7 +15,6 @@ public class StormController : MonoBehaviour
 
     public TextMeshProUGUI state;
     public TextMeshProUGUI countDown;
-    public Material skybox;
     public Transform ship;
     public Light light;
 
@@ -113,7 +112,7 @@ public class StormController : MonoBehaviour
         }
 
         RenderSettings.fogDensity = fogCalm + stormTransitionState * (fogStorm - fogCalm);
-        skybox.SetFloat("_Exposure", 0.5f - stormTransitionState);
+        RenderSettings.skybox.SetFloat("_Exposure", 0.5f - stormTransitionState);
 
         light.intensity = 1.0f - 1.5f * stormTransitionState;
 
