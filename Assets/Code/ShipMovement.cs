@@ -15,6 +15,7 @@ public class ShipMovement : MonoBehaviour
     const float maxShipForwardVeloicty = 0.45f;
     private bool sailContracted = true;
     private bool sailMoving = false;
+    private bool firstDeath = false;
 
     float shipRotation = 0.0f;
     float shipAngularVelocity = 0.0f;
@@ -225,8 +226,9 @@ public class ShipMovement : MonoBehaviour
             hpBar.localScale = new Vector3(percent, hpBar.localScale.y, hpBar.localScale.z);
         }
 
-        if(currentHp <= 0)
+        if(currentHp <= 0 && (firstDeath == false))
         {
+            firstDeath = true;
             StartCoroutine(showDeath());
         }
     }
